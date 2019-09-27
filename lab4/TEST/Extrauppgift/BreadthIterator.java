@@ -32,6 +32,4 @@ class BreadthIterator implements Iterator<Component> {
     return null;
   }
 
-
-
 }
