@@ -29,11 +29,10 @@ class Demo {
     plasticBag.add(toothBrush);
 
     Iterator<Component> itr = suitcase.iterator();
-
     while (itr.hasNext()) {
       Component t = itr.next();
       System.out.println(t.getName());
     }
   }
-  
+
 }
