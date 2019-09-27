@@ -10,6 +10,7 @@ class Composite extends Component implements Iterable<Component> {
 
   public Iterator<Component> iterator() {
     return new BreadthIterator(this);
+    //return new PreorderIterator(this);
   }
 
   public void add(Component item) {
