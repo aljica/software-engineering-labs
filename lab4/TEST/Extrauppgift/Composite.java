@@ -1,36 +1,31 @@
 import java.util.*;
 
-class Composite extends Component {
+class Composite extends Component implements Iterable<Component> {
 
   ArrayList<Component> items = new ArrayList<Component>();
 
-  Composite(String name, int weight) {
+  Composite(String name) {
     this.name = name;
-    this.weight = weight;
   }
 
-  void add(Component item) {
+  public Iterator<Component> iterator() {
+    return new BreadthIterator(this);
+  }
+
+  public void add(Component item) {
     items.add(item);
   }
 
-  void remove(Component item) {
+  public void remove(Component item) {
     items.remove(item);
   }
 
-  public int getWeight() {
-    int totalWeight = this.weight;
-    for (Component item : items) {
-      totalWeight += item.getWeight();
-    }
-    return totalWeight;
+  public String getName() {
+    return this.name;
   }
 
-  public String toString() {
-    String names = this.name;
-    for (Component item : items) {
-      names += "\n" + item;
-    }
-    return names;
+  public ArrayList<Component> getItems() {
+    return this.items;
   }
 
 }

@@ -1,19 +1,21 @@
+import java.util.*;
+
 class Demo {
 
   public static void main(String[] args) {
 
-    Composite suitcase = new Composite("Suitcase", 15);
+    Composite suitcase = new Composite("Suitcase");
 
-    Composite hygieneBag = new Composite("Hygiene Bag", 5);
-    Composite plasticBag = new Composite("Plastic Bag", 1);
-    Leaf schampo = new Leaf("Schampo", 3);
-    Leaf toothPaste = new Leaf("Tooth Paste", 2);
-    Leaf toothBrush = new Leaf("Tooth Brush", 2);
+    Composite hygieneBag = new Composite("Hygiene Bag");
+    Composite plasticBag = new Composite("Plastic Bag");
+    Leaf schampo = new Leaf("Schampo");
+    Leaf toothPaste = new Leaf("Tooth Paste");
+    Leaf toothBrush = new Leaf("Tooth Brush");
 
-    Composite sportsBag = new Composite("Sports Bag", 7);
-    Composite shoesBag = new Composite("Shoes bag", 2);
-    Leaf shoes = new Leaf("Shoes", 4);
-    Leaf tshirt = new Leaf("T-Shirt", 1);
+    Composite sportsBag = new Composite("Sports Bag");
+    Composite shoesBag = new Composite("Shoes bag");
+    Leaf shoes = new Leaf("Shoes");
+    Leaf tshirt = new Leaf("T-Shirt");
 
     suitcase.add(sportsBag);
     sportsBag.add(tshirt);
@@ -26,12 +28,12 @@ class Demo {
     plasticBag.add(toothPaste);
     plasticBag.add(toothBrush);
 
-    System.out.println(suitcase);
-    System.out.println(suitcase.getWeight());
+    Iterator<Component> itr = suitcase.iterator();
 
-    suitcase.remove(hygieneBag);
-    System.out.println(suitcase);
-    System.out.println(suitcase.getWeight());
+    while (itr.hasNext()) {
+      Component t = itr.next();
+      System.out.println(t.getName());
+    }
   }
 
 }

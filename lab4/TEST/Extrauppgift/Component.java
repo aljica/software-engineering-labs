@@ -1,9 +1,10 @@
+import java.util.*;
+
 abstract class Component {
 
   String name;
-  int weight;
 
-  public abstract int getWeight();
-  public abstract String toString();
+  public abstract String getName();
+  public abstract ArrayList<Component> getItems();
 
 }
