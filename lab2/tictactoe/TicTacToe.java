@@ -14,62 +14,66 @@ class TicTacToe implements Boardgame {
 
   public boolean move(int i, int j) {
     if (numMoves < 9) {
-      if (board[i][j] != null) {
-        currentMessage = "Failed to perform move, something's there!";
-        return false;
-      }
-      else {
-        if (player1Turn) {
-          board[i][j] = player1;
-          player1Turn = false;
-        } else {
-          board[i][j] = player2;
-          player1Turn = true;
-        }
-        currentMessage = "Succeeded in making move";
-      }
-      numMoves++;
+      return preFlyttFas(i, j);
+    }
+    return FlyttFas(i, j);
+  }
+
+  boolean preFlyttFas(int i, int j) {
+    if (board[i][j] != null) {
+      currentMessage = "Failed to perform move, something's there!";
+      return false;
     }
     else {
-      // Här börjar flyttfasen
-      if (selected) {
-        if (!player1Turn && board[i][j] == player1) {
-          /* If it's player 2's turn, they have already selected
-          a square and have now chosen a square containing an 'X': */
-          board[i][j] = player2;
-          board[iCoord][jCoord] = player1;
-        } else if (player1Turn && board[i][j] == player2) {
-          board[i][j] = player1;
-          board[iCoord][jCoord] = player2;
-        } else {
-          currentMessage = "Wrong kind of choice";
-          return false;
-        }
-        if (player1Turn) {
-          player1Turn = false;
-        } else {
-          player1Turn = true;
-        }
-        currentMessage = "Dropped";
-        selected = false;
+      if (player1Turn) {
+        board[i][j] = player1;
+        player1Turn = false;
+      } else {
+        board[i][j] = player2;
+        player1Turn = true;
+      }
+      currentMessage = "Succeeded in making move";
+    }
+    numMoves++;
+    return true;
+  }
+
+  boolean FlyttFas(int i, int j) {
+    if (selected) {
+      if (!player1Turn && board[i][j] == player1) {
+        /* If it's player 2's turn, they have already selected
+        a square and have now chosen a square containing an 'X': */
+        board[i][j] = player2;
+        board[iCoord][jCoord] = player1;
+        player1Turn = true;
+      }
+      else if (player1Turn && board[i][j] == player2) {
+        board[i][j] = player1;
+        board[iCoord][jCoord] = player2;
+        player1Turn = false;
       }
       else {
-        if ((!player1Turn && board[i][j] == player2) ||
-          (player1Turn && board[i][j] == player1)) {
-          /* If it's player 2's turn and player 2 has correctly
-          chosen a square containing an 'O': */
-          selected = true;
-          iCoord = i;
-          jCoord = j;
-        }
-          else {
-          currentMessage = "Wrong kind of choice";
-          return false;
-        }
-        currentMessage = "Chosen";
+        currentMessage = "Wrong kind of choice";
+        return false;
       }
+      currentMessage = "Dropped";
+      selected = false;
     }
-
+    else {
+      if ((!player1Turn && board[i][j] == player2) ||
+        (player1Turn && board[i][j] == player1)) {
+        /* If it's player 2's turn and player 2 has correctly
+        chosen a square containing an 'O': */
+        selected = true;
+        iCoord = i;
+        jCoord = j;
+      }
+        else {
+        currentMessage = "Wrong kind of choice";
+        return false;
+      }
+      currentMessage = "Chosen";
+    }
     return true;
   }
 
