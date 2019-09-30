@@ -23,9 +23,4 @@ public class Square extends JButton {
     // We setbounds in ViewControl.
   }
 
-  void sendData() {
-    //System.out.println("i: " + i + " j: " + j);
-    return;
-  }
-
 }

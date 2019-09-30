@@ -17,7 +17,8 @@ class TicTacToe implements Boardgame {
       if (board[i][j] != null) {
         currentMessage = "Failed to perform move, something's there!";
         return false;
-      } else {
+      }
+      else {
         if (player1Turn) {
           board[i][j] = player1;
           player1Turn = false;
@@ -27,9 +28,9 @@ class TicTacToe implements Boardgame {
         }
         currentMessage = "Succeeded in making move";
       }
-
       numMoves++;
-    } else {
+    }
+    else {
       // Här börjar flyttfasen
       if (selected) {
         if (!player1Turn && board[i][j] == player1) {
@@ -51,7 +52,8 @@ class TicTacToe implements Boardgame {
         }
         currentMessage = "Dropped";
         selected = false;
-      } else {
+      }
+      else {
         if ((!player1Turn && board[i][j] == player2) ||
           (player1Turn && board[i][j] == player1)) {
           /* If it's player 2's turn and player 2 has correctly
