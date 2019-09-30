@@ -16,7 +16,7 @@ class FifteenModel implements Boardgame {
     int squareNum = 0;
     for (int i=0; i<4; i++) {
       for (int j=0; j<4; j++) {
-        squareNum += 1;
+        squareNum++;
 
         if (squareNum == 16) {
           break;
@@ -29,13 +29,15 @@ class FifteenModel implements Boardgame {
     iemp = 3;
     jemp = 3;
 
-    // Create random starting square
+    createStartingSquare();
+  }
 
+  private void createStartingSquare() {
     int iChange;
     int jChange;
     int whichToMove;
     Random rand = new Random();
-    for (int i=0; i<20; i++) {
+    for (int i=0; i<100; i++) {
       iChange = rand.nextInt(2); // iChange is 0 or 1
       jChange = rand.nextInt(2);
 
@@ -44,12 +46,12 @@ class FifteenModel implements Boardgame {
       } else {
         iChange = 1;
       }
-      if (jChange == 0) {
-        jChange=-1;
-      } else {
-        jChange=1;
-      }
 
+      if (jChange == 0) {
+        jChange = -1;
+      } else {
+        jChange = 1;
+      }
 
       whichToMove = rand.nextInt(2); // if 0, move up/down (i)
       // if 1, move left/right (j)
@@ -59,7 +61,8 @@ class FifteenModel implements Boardgame {
         } else {
           move(iemp+iChange, jemp);
         }
-      } else {
+      }
+      else {
         if (jemp+jChange<0 || jemp+jChange>3) {
           move(iemp, jemp-jChange);
         } else {
@@ -68,24 +71,6 @@ class FifteenModel implements Boardgame {
       }
 
     }
-
-    /*for (int i=0; i<20; i++) {
-      if (i%2 == 0) {
-        if (0<jemp) {
-          move(iemp, jemp-1);
-        } else {
-          move(iemp, jemp+1);
-        }
-      }
-        else {
-          if (0<iemp) {
-            move(iemp-1, jemp);
-          } else {
-            move(iemp+1, jemp);
-          }
-      }
-    }*/
-
   }
 
   public boolean move(int i, int j) {

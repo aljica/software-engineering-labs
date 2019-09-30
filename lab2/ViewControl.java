@@ -2,12 +2,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-class ViewControl extends JFrame /*implements ActionListener*/ {
+class ViewControl extends JFrame {
 
   private Boardgame game;
   private int size;
   private Square[][] board; // Square är subklass till JButton (tänk MyButton)
   private JLabel mess = new JLabel();
+  JPanel thePanel = new JPanel();
 
   public static void main(String[] u) {
     Boardgame game = new FifteenModel(); // See https://stackoverflow.com/questions/16750772/instantiating-interfaces-in-java
@@ -22,12 +23,23 @@ class ViewControl extends JFrame /*implements ActionListener*/ {
     JFrame f = new JFrame();
     f.setSize(700, 700);
 
-    JPanel thePanel = new JPanel();
     thePanel.setLayout(null); // Could use GridLayout, maybe?
-
     f.add(thePanel);
 
     // Creating all the buttons.
+    createButtons();
+
+    // Updating game status.
+    updateStatus();
+    // Updating game message.
+    mess.setBounds(100, 50, 1000, 50);
+    thePanel.add(mess);
+
+    f.setVisible(true);
+    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  }
+
+  void createButtons() {
     board = new Square[size][size];
 
     for (int i=0; i<size; i++) {
@@ -46,16 +58,6 @@ class ViewControl extends JFrame /*implements ActionListener*/ {
         board[i][j] = sq; // Storing the square in our board.
       }
     }
-
-    // Updating game status.
-    updateStatus();
-    // Updating game message.
-    //mess.setText(updateMessage());
-    mess.setBounds(100, 50, 1000, 50);
-    thePanel.add(mess);
-
-    f.setVisible(true);
-    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
   void updateStatus() {
@@ -67,15 +69,11 @@ class ViewControl extends JFrame /*implements ActionListener*/ {
         board[i][j].setText(status);
       }
     }
-    // Get statuses, update button locations in matrix.
   }
 
   void updateMessage() {
     String msg = game.getMessage();
     mess.setText(msg);
-    //String msg = "hi";
-    //return msg;
-    // Updating the message.
   }
 
 }
