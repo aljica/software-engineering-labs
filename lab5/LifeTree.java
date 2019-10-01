@@ -40,6 +40,12 @@ class LifeTree extends TreeFrame {
           }
           return;
       }
+      else {
+        System.out.println("Invalid read file, start and end tag false");
+        System.out.println(parent.fetchLevel());
+        System.out.println(line.substring(line.indexOf("/")+1, line.indexOf(">")));
+        System.exit(0);
+      }
     }
     else {
       DefaultMutableTreeNode2 child = createNode(line);
