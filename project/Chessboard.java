@@ -1,11 +1,11 @@
-public class Chessboard implements Boardgame {
+class Chessboard implements CheckeredBoardgame {
 
   public boolean move(int i, int j) {
     return true;
   }
 
   public String getStatus(int i, int j) {
-    return "Works"
+    return "Works";
   }
 
   public String getMessage() {
