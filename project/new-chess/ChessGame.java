@@ -3,6 +3,7 @@ class ChessGame {
   Piece[][] board = new Piece[8][8];
   private Piece chosenPiece;
   private boolean selected = false;
+  private boolean whitesTurn = true;
 
   public boolean select(int i, int j) {
     if (board[i][j] != null) {
@@ -10,6 +11,14 @@ class ChessGame {
       selected = true;
     }
     return selected;
+  }
+
+  public boolean pieceIsSelected() {
+    return this.selected;
+  }
+
+  public boolean whiteToMove() {
+    return whitesTurn;
   }
 
   public Piece getStatus(int i, int j) {
