@@ -2,13 +2,37 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-class ViewControl extends JFrame {
+class ViewControl extends JFrame implements ActionListener {
 
   private ChessGame game;
   private Square[][] board = new Square[8][8];
   private JPanel chessPanel = new JPanel();
   private JPanel messagePan = new JPanel();
   private JFrame f = new JFrame();
+
+  public void actionPerformed(ActionEvent e) {
+    Square square = (Square) e.getSource();
+
+    if (game.move(square.geti(), square.getj())) {
+      System.out.println("Updating status");
+      updateStatus();
+      // Also updateMessage() here (maybe a msg in right pane saying "SElected")
+    } else {
+      System.out.println("Something went wrong");
+    }
+
+  }
+
+  void setBtnListeners() {
+    Piece piece;
+    Square square;
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+        square = board[i][j];
+        square.addActionListener(this);
+      }
+    }
+  }
 
   void updateStatus() {
     Piece piece;
@@ -18,6 +42,7 @@ class ViewControl extends JFrame {
 
         piece = game.getStatus(i, j);
         if (piece == null) {
+          board[i][j].setIcon(null); // Not sure if necessary.
           continue;
         }
         square = board[i][j];
@@ -82,6 +107,9 @@ class ViewControl extends JFrame {
 
     // Work on this later
     f.add(messagePan);
+
+    // Btn action listeners
+    setBtnListeners();
 
     // Update chess panel (board) status
     updateStatus();

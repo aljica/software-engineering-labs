@@ -35,4 +35,12 @@ public class Square extends JButton {
     this.setIcon(icons[identifier]);
   }
 
+  public int geti() {
+    return this.i;
+  }
+
+  public int getj() {
+    return this.j;
+  }
+
 }

@@ -2,14 +2,60 @@ class ChessGame {
 
   Piece[][] board = new Piece[8][8];
   private Piece chosenPiece;
+  private int choseni;
+  private int chosenj;
   private boolean selected = false;
   private boolean whitesTurn = true;
+  private String message;
+
+  public boolean move(int i, int j) {
+    if (pieceIsSelected()) {
+      return !drop(i, j);
+    } else {
+      return select(i, j);
+    }
+  }
+
+  public boolean drop(int i, int j) {
+    if (i == this.choseni && j == this.chosenj) {
+      // If user picks up piece then drops on same square.
+      this.selected = false;
+      return this.selected; // Evalutes to true in move().
+    }
+
+    if (this.board[i][j] == null) {
+      this.board[i][j] = this.chosenPiece;
+      this.board[this.choseni][this.chosenj] = null;
+      this.selected = false;
+      toggleWhoseTurn();
+    }
+    return this.selected;
+  }
+
+  // Help function for select()
+  void pickupPiece(int i, int j) {
+    this.chosenPiece = board[i][j];
+    this.choseni = i;
+    this.chosenj = j;
+    this.selected = true;
+  }
 
   public boolean select(int i, int j) {
     if (board[i][j] != null) {
-      chosenPiece = board[i][j];
-      selected = true;
+      int identifier = board[i][j].getIdentifier();
+
+      if (whiteToMove()) {
+        if (identifier % 2 == 0) {
+          pickupPiece(i, j);
+        }
+      }
+      else {
+        if (identifier % 2 == 1) {
+          pickupPiece(i, j);
+        }
+      }
     }
+
     return selected;
   }
 
@@ -17,12 +63,24 @@ class ChessGame {
     return this.selected;
   }
 
+  public void toggleWhoseTurn() {
+    if (whiteToMove()) {
+      this.whitesTurn = false;
+    } else {
+      this.whitesTurn = true;
+    }
+  }
+
   public boolean whiteToMove() {
-    return whitesTurn;
+    return this.whitesTurn;
   }
 
   public Piece getStatus(int i, int j) {
-    return board[i][j];
+    return this.board[i][j];
+  }
+
+  public String getMessage() {
+    return this.message;
   }
 
   void initBoard() {
@@ -61,9 +119,5 @@ class ChessGame {
     initBoard();
     // updatePieceMoves(); // Updates all pieces' legal moves.
   }
-
-/*  public static void main(String[] args) {
-    new ChessGame();
-  }*/
 
 }
