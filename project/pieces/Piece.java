@@ -1,12 +1,17 @@
 package pieces;
 
+// Pieces should get the Board object after each updateStatus()
+// and check which squares the piece in question can move to.
+// They could store this information in an ArrayList, perhaps.
+// Or in a Collection? Not sure what that is, look it up.
+
 public abstract class Piece {
 
   public int i;
   public int j;
 
   Piece() {
-    
+
   }
 
   public int getI() {
