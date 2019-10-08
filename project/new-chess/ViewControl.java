@@ -5,11 +5,63 @@ import javax.swing.*;
 class ViewControl extends JFrame {
 
   private ChessGame game;
-  private Square[][] board;
+  private Square[][] board = new Square[8][8];
+  private JPanel chessPanel = new JPanel();
+  private JPanel messagePan = new JPanel();
+  private JFrame f = new JFrame();
 
-  JFrame f = new JFrame();
+  void updateStatus() {
+    Piece piece;
+    Square square;
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
 
-  private void setFrameSize() {
+        piece = game.getStatus(i, j);
+        if (piece == null) {
+          continue;
+        }
+        square = board[i][j];
+
+        int identifier = piece.getIdentifier();
+        square.setImage(piece.getIdentifier());
+
+      }
+    }
+  }
+
+  void paintBoard() {
+    chessPanel.setLayout(new GridLayout(8, 8));
+    Color black = new Color(190,97,78);
+    Color white = new Color(255,255,255);
+    Color c = black;
+
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+
+        if (i%2 == 0) {
+          if (j%2 == 0) {
+            c = white;
+          } else {
+            c = black;
+          }
+        }
+
+        else if (i%2 == 1) {
+          if (j%2 == 0) {
+            c = black;
+          } else {
+            c = white;
+          }
+        }
+
+        Square square = new Square(i, j, c);
+        board[i][j] = square;
+        chessPanel.add(square);
+      }
+    }
+  }
+
+  void setFrameSize() {
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       int height = screenSize.height;
       int width = screenSize.width;
@@ -21,6 +73,23 @@ class ViewControl extends JFrame {
     this.game = game;
 
     setFrameSize();
+    f.setLayout(new GridLayout(1, 2));
+    f.setVisible(true);
+    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    paintBoard(); // Adds buttons to chess panel.
+    f.add(chessPanel);
+
+    // Work on this later
+    f.add(messagePan);
+
+    // Update chess panel (board) status
+    updateStatus();
+  }
+
+  public static void main(String[] args) {
+    ChessGame game = new ChessGame();
+    new ViewControl(game);
   }
 
 }

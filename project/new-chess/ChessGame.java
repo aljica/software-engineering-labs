@@ -1,12 +1,15 @@
 class ChessGame {
 
   Piece[][] board = new Piece[8][8];
-  private int selecti;
-  private int selectj;
+  private Piece chosenPiece;
+  private boolean selected = false;
 
-  public void select(int i, int j) {
-    this.selecti = i;
-    this.selectj = j;
+  public boolean select(int i, int j) {
+    if (board[i][j] != null) {
+      chosenPiece = board[i][j];
+      selected = true;
+    }
+    return selected;
   }
 
   public Piece getStatus(int i, int j) {

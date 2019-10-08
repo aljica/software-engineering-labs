@@ -2,7 +2,11 @@ public class Pawn extends Piece {
 
   public Pawn(int i, int j, boolean isWhite) {
     super(i, j, isWhite);
-    this.value = 1;
+    if (isWhite) {
+      this.value = 0;
+    } else {
+      this.value = 1;
+    }
   }
 
   public void updateLegalMoves(Piece[][] board) {

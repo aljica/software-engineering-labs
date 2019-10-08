@@ -4,7 +4,7 @@ public abstract class Piece {
 
   public int i;
   public int j;
-  public int value;
+  public int value = -1;
   public boolean isWhite;
   public boolean firstMove = true;
   public ArrayList<Integer> legalMoves = new ArrayList<Integer>();
@@ -13,6 +13,13 @@ public abstract class Piece {
     this.i = i;
     this.j = j;
     this.isWhite = isWhite;
+  }
+
+  public abstract void updateLegalMoves(Piece[][] board);
+
+  public int getIdentifier() {
+    // 0 for white pawn, 1 for black pawn, etc...
+    return this.value;
   }
 
   // Add some methods
@@ -28,6 +35,4 @@ public abstract class Piece {
   public int getj() {
     return this.j;
   }
-
-  public abstract void updateLegalMoves(Piece[][] board);
 }
