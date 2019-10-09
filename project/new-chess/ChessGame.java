@@ -38,7 +38,14 @@ class ChessGame {
           this.board[i][j] = chosenPiece;
           this.board[this.choseni][this.chosenj] = null;
           chosenPiece.seti(i); chosenPiece.setj(j);
-          this.board[i][j].clearLegalMoves();
+          for (int a = 0; a < 8; a++) {
+            for (int b = 0; b < 8; b++) {
+              if (board[a][b] == null) {
+                continue;
+              }
+              this.board[a][b].clearLegalMoves(); // clear everyone's legal moves
+            }
+          }
           this.selected = false;
           toggleWhoseTurn();
         }

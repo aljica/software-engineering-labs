@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.ArrayList;
 
 class ViewControl extends JFrame implements ActionListener {
 
@@ -21,6 +22,29 @@ class ViewControl extends JFrame implements ActionListener {
         return;
       }
       game.identifyLegalMoves();
+      Piece p;
+      for (int a = 0; a < 8; a++) {
+        for (int b = 0; b < 8; b++) {
+          p = game.getStatus(a, b);
+          if (p==null) {
+            System.out.println("null");
+          } else {
+            System.out.println(p);
+            System.out.println(p.geti());
+            System.out.println(p.getj());
+
+            ArrayList<ArrayList<Integer>> tmp =
+              new ArrayList<ArrayList<Integer>>();
+            tmp = p.getLegalMoves();
+            System.out.println("size of tmp");
+            System.out.println(tmp.size());
+            for (int c = 0; c < tmp.size(); c++) {
+              System.out.println(tmp.get(c).get(0));
+              System.out.println(tmp.get(c).get(1));
+            }
+          }
+        }
+      }
       System.out.println("Updating status");
       updateStatus();
       // Also updateMessage() here (maybe a msg in right pane saying "SElected")

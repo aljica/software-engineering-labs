@@ -32,7 +32,7 @@ public class Pawn extends Piece {
         this.firstMove = false;
       }
       else {
-        if (board[i-1][j] == null) {
+        if (board[this.i-1][this.j] == null) {
           move.add(this.i-1); move.add(this.j);
           this.legalMoves.add(move);
         }
@@ -54,7 +54,7 @@ public class Pawn extends Piece {
         this.firstMove = false;
       }
       else {
-        if (board[i+1][j] == null) {
+        if (board[this.i+1][this.j] == null) {
           move.add(this.i + 1); move.add(this.j);
           this.legalMoves.add(move);
         }
