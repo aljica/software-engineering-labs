@@ -20,6 +20,7 @@ class ChessGame {
 
   public boolean drop(int i, int j) {
     Piece chosenPiece = this.board[choseni][chosenj];
+
     if (i == this.choseni && j == this.chosenj) {
       // If user picks up piece then drops on same square.
       this.selected = false;
@@ -38,6 +39,14 @@ class ChessGame {
           this.board[i][j] = chosenPiece;
           this.board[this.choseni][this.chosenj] = null;
           chosenPiece.seti(i); chosenPiece.setj(j);
+          // If black or white pawn, then set its firstMove
+          // parameter to true, to avoid problems with
+          // clearing legal moves
+          // We made it so all pieces have a first move variable.
+          // They don't need it, though. Just the pawns. But it was easier
+          // to solve this problem by just giving them all a first move var.
+          chosenPiece.firstMoveHasBeenMade();
+
           for (int a = 0; a < 8; a++) {
             for (int b = 0; b < 8; b++) {
               if (board[a][b] == null) {

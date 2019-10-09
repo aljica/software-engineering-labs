@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Pawn extends Piece {
 
-  private boolean firstMove = true; // Only pawns need this, for 1/2 step initial move.
+  //public boolean firstMove = true; // Only pawns need this, for 1/2 step initial move.
 
   public Pawn(int i, int j, boolean isWhite) {
     super(i, j, isWhite);
@@ -29,7 +29,7 @@ public class Pawn extends Piece {
         tmp.add(this.i - 2); tmp.add(this.j);
         this.legalMoves.add(tmp);
 
-        this.firstMove = false;
+        //this.firstMove = false;
       }
       else {
         if (board[this.i-1][this.j] == null) {
@@ -51,7 +51,7 @@ public class Pawn extends Piece {
         tmp.add(this.i + 2); tmp.add(this.j);
         this.legalMoves.add(tmp);
 
-        this.firstMove = false;
+        //this.firstMove = false;
       }
       else {
         if (board[this.i+1][this.j] == null) {
