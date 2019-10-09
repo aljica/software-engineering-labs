@@ -24,7 +24,8 @@ class ChessGame {
     if (i == this.choseni && j == this.chosenj) {
       // If user picks up piece then drops on same square.
       this.selected = false;
-      return this.selected; // Evalutes to true in move().
+      this.clearPiecesLegalMoves();
+      //return this.selected; // Evalutes to true in move().
     }
 
     else {
@@ -47,14 +48,9 @@ class ChessGame {
           // to solve this problem by just giving them all a first move var.
           chosenPiece.firstMoveHasBeenMade();
 
-          for (int a = 0; a < 8; a++) {
-            for (int b = 0; b < 8; b++) {
-              if (board[a][b] == null) {
-                continue;
-              }
-              this.board[a][b].clearLegalMoves(); // clear everyone's legal moves
-            }
-          }
+          // Clear all pieces legal moves.
+          this.clearPiecesLegalMoves();
+
           this.selected = false;
           toggleWhoseTurn();
         }
@@ -65,6 +61,19 @@ class ChessGame {
 
     // We also have to seti() and setj() the piece object we just moved to
     // the new square we moved it to!!
+  }
+
+  public void clearPiecesLegalMoves() {
+    Piece piece;
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+        if (board[i][j] == null) {
+          continue;
+        }
+        piece = this.board[i][j];
+        piece.clearLegalMoves(); // Update legal moves for each piece.
+      }
+    }
   }
 
   public void identifyLegalMoves() {
