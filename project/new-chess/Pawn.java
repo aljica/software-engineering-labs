@@ -33,6 +33,7 @@ public class Pawn extends Piece {
       }
       else {
         if (board[this.i-1][this.j] == null) {
+          // Split this into a help method
           move.add(this.i-1); move.add(this.j);
           this.legalMoves.add(move);
         }
