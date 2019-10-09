@@ -12,8 +12,15 @@ class ViewControl extends JFrame implements ActionListener {
 
   public void actionPerformed(ActionEvent e) {
     Square square = (Square) e.getSource();
+    //game.identifyLegalMoves();
+    boolean moveWasSuccess = game.move(square.geti(), square.getj());
 
-    if (game.move(square.geti(), square.getj())) {
+    if (moveWasSuccess) {
+      boolean moveWasSelection = game.pieceIsSelected();
+      if (moveWasSelection) {
+        return;
+      }
+      game.identifyLegalMoves();
       System.out.println("Updating status");
       updateStatus();
       // Also updateMessage() here (maybe a msg in right pane saying "SElected")

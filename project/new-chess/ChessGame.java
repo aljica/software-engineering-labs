@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+
 class ChessGame {
 
   Piece[][] board = new Piece[8][8];
-  private Piece chosenPiece;
+  //private Piece chosenPiece;
   private int choseni;
   private int chosenj;
   private boolean selected = false;
@@ -17,24 +19,53 @@ class ChessGame {
   }
 
   public boolean drop(int i, int j) {
+    Piece chosenPiece = this.board[choseni][chosenj];
     if (i == this.choseni && j == this.chosenj) {
       // If user picks up piece then drops on same square.
       this.selected = false;
       return this.selected; // Evalutes to true in move().
     }
 
-    if (this.board[i][j] == null) {
-      this.board[i][j] = this.chosenPiece;
-      this.board[this.choseni][this.chosenj] = null;
-      this.selected = false;
-      toggleWhoseTurn();
+    else {
+      ArrayList<ArrayList<Integer>> piecesLegalMoves;
+      piecesLegalMoves = chosenPiece.getLegalMoves();
+      int moveToi; int moveToj;
+      for (int k = 0; k < piecesLegalMoves.size(); k++) {
+        moveToi = piecesLegalMoves.get(k).get(0);
+        moveToj = piecesLegalMoves.get(k).get(1);
+        if (i == moveToi && j == moveToj) {
+          // perform move
+          this.board[i][j] = chosenPiece;
+          this.board[this.choseni][this.chosenj] = null;
+          chosenPiece.seti(i); chosenPiece.setj(j);
+          this.board[i][j].clearLegalMoves();
+          this.selected = false;
+          toggleWhoseTurn();
+        }
+      }
     }
+
     return this.selected;
+
+    // We also have to seti() and setj() the piece object we just moved to
+    // the new square we moved it to!!
+  }
+
+  public void identifyLegalMoves() {
+    Piece piece;
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+        if (board[i][j] == null) {
+          continue;
+        }
+        piece = this.board[i][j];
+        piece.updateLegalMoves(this.board); // Update legal moves for each piece.
+      }
+    }
   }
 
   // Help function for select()
   void pickupPiece(int i, int j) {
-    this.chosenPiece = board[i][j];
     this.choseni = i;
     this.chosenj = j;
     this.selected = true;
@@ -105,13 +136,15 @@ class ChessGame {
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 8; j++) {
         if (i == 0) {
-          board[1][j] = new Pawn(i, j, false);
+          board[1][j] = new Pawn(1, j, false);
         }
         else if (i == 1) {
-          board[6][j] = new Pawn(i, j, true);
+          board[6][j] = new Pawn(6, j, true);
         }
       }
     }
+
+    this.identifyLegalMoves(); // init all possible moves for the pieces
   }
 
   public ChessGame() {

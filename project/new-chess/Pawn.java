@@ -1,4 +1,8 @@
+import java.util.ArrayList;
+
 public class Pawn extends Piece {
+
+  private boolean firstMove = true; // Only pawns need this, for 1/2 step initial move.
 
   public Pawn(int i, int j, boolean isWhite) {
     super(i, j, isWhite);
@@ -10,33 +14,50 @@ public class Pawn extends Piece {
   }
 
   public void updateLegalMoves(Piece[][] board) {
-    this.legalMoves.clear(); // Not sure.
+
+    ArrayList<Integer> move = new ArrayList<Integer>();
+
     if (this.isWhite) {
       if (this.firstMove) {
+
         // One step forward
-        this.legalMoves.add(this.i - 1);
-        this.legalMoves.add(this.j);
+        move.add(this.i - 1); move.add(this.j);
+        this.legalMoves.add(move);
+
         // Two steps forward
-        this.legalMoves.add(this.i - 2);
-        this.legalMoves.add(this.j);
-        firstMove = false;
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        tmp.add(this.i - 2); tmp.add(this.j);
+        this.legalMoves.add(tmp);
+
+        this.firstMove = false;
       }
-      else if (board[i-1][j].geti() == -1) {
-        // If square in front is empty
-        this.legalMoves.add(i-1);
-        this.legalMoves.add(j);
+      else {
+        if (board[i-1][j] == null) {
+          move.add(this.i-1); move.add(this.j);
+          this.legalMoves.add(move);
+        }
       }
       // Add else ifs for capturing diagonally here.
     }
-    else if (!this.isWhite) {
+
+    else {
       if (this.firstMove) {
         // One
-        this.legalMoves.add(this.i + 1);
-        this.legalMoves.add(this.j);
+        move.add(this.i + 1); move.add(j);
+        this.legalMoves.add(move);
+
         // Two
-        this.legalMoves.add(this.i + 2);
-        this.legalMoves.add(this.j);
-        firstMove = false;
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        tmp.add(this.i + 2); tmp.add(this.j);
+        this.legalMoves.add(tmp);
+
+        this.firstMove = false;
+      }
+      else {
+        if (board[i+1][j] == null) {
+          move.add(this.i + 1); move.add(this.j);
+          this.legalMoves.add(move);
+        }
       }
     }
   }
