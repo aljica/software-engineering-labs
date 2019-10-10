@@ -27,21 +27,14 @@ public class Rook extends Piece {
       return;
     }
     */
-  }
     for (int a = 1; a < (8 - this.i); a++) {
       this.addMove(this.i + a, this.j);
     }
   }
 
   public void updateLegalMoves(Piece[][] board) {
-    if ((i - (8/2)) < 0) {
-      // This if-statement is here because order matters!
-      this.addVerticalMovesUpwards(board); // First we do this
-      this.addVerticalMovesDownwards(board); // Then, we do this
-    }
-    else {
-
-    }
+    this.addVerticalMovesUpwards(board);
+    this.addVerticalMovesDownwards(board);
   }
 
 }

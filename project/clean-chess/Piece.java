@@ -19,6 +19,28 @@ public abstract class Piece {
     this.firstMove = false;
   }
 
+  public Piece getPieceOnDestinationSquare(Piece[][] board, int a, int b) {
+    return board[a][b];
+  }
+
+  public boolean destinationSquareHasOppositeColor(Piece[][] board, int a, int b) {
+    if (!this.destinationSquareIsEmpty(board, a, b)) {
+      Piece destinationSquare = this.getPieceOnDestinationSquare(board, a, b);
+      if (destinationSquare.getIdentifier() % 2 != this.getIdentifier() % 2) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean destinationSquareIsEmpty(Piece[][] board, int a, int b) {
+    Piece destinationSquare = board[a][b];
+    if (destinationSquare == null) {
+      return true;
+    }
+    return false;
+  }
+
   public void addMove(int a, int b) {
     ArrayList<Integer> move = new ArrayList<Integer>();
     move.add(this.i + a); move.add(this.j + b);
@@ -32,7 +54,6 @@ public abstract class Piece {
   }
 
   public ArrayList<ArrayList<Integer>> getLegalMoves() {
-    // Could even have an iterator for this.
     return this.legalMoves;
   }
 
@@ -41,7 +62,6 @@ public abstract class Piece {
     return this.value;
   }
 
-  // Add some methods
   public void seti(int i) {
     this.i = i;
   }

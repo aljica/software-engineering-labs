@@ -13,8 +13,6 @@ public class Pawn extends Piece {
 
   public void untouchedPawnMovesTwoSquares(Piece[][] board) {
     if (this.isWhite) {
-      // Change this to:
-      // this.addMove(a, b);
       this.addMove(-1, 0);
       this.addMove(-2, 0);
     }
@@ -49,51 +47,26 @@ public class Pawn extends Piece {
 
   public void checkRightDiagonal(Piece[][] board) {
     if (this.isWhite) {
-      Piece rightDiagonalSquare = board[this.i - 1][this.j + 1];
-
-      if (rightDiagonalSquare != null) {
-        // If it's a black piece, we can capture it.
-        if (rightDiagonalSquare.getIdentifier() % 2 == 1) {
-          this.addMove(-1, 1);
-        }
+      if (this.destinationSquareHasOppositeColor(board, this.i-1, this.j+1)) {
+        this.addMove(-1, 1);
       }
     }
     else {
-      Piece rightDiagonalSquare = board[this.i + 1][this.j + 1];
-
-      if (rightDiagonalSquare != null) {
-        // If it's a white piece, we can capture it.
-        if (rightDiagonalSquare.getIdentifier() % 2 == 0) {
-          this.addMove(1, 1);
-        }
+      if (this.destinationSquareHasOppositeColor(board, this.i+1, this.j+1)) {
+        this.addMove(1, 1);
       }
     }
   }
 
-  // Might want to rename these to addLeftDiagonal()?
-  // To follow naming convention found in Knight.java.
-  // Then again, we are checking the diagonals first, here...
-  // in Knight.java, we know the move is possible (unless same colored
-  // piece is blocking).
   public void checkLeftDiagonal(Piece[][] board) {
     if (this.isWhite) {
-      Piece leftDiagonalSquare = board[this.i - 1][this.j - 1];
-
-      if (leftDiagonalSquare != null) {
-        // If it's a black piece, we can capture it.
-        if (leftDiagonalSquare.getIdentifier() % 2 == 1) {
-          this.addMove(-1, -1);
-        }
+      if (this.destinationSquareHasOppositeColor(board, this.i-1, this.j-1)) {
+        this.addMove(-1, -1);
       }
     }
     else {
-      Piece leftDiagonalSquare = board[this.i + 1][this.j - 1];
-
-      if (leftDiagonalSquare != null) {
-        // If it's a white piece, we can capture it.
-        if (leftDiagonalSquare.getIdentifier() % 2 == 0) {
-          this.addMove(1, -1);
-        }
+      if (this.destinationSquareHasOppositeColor(board, this.i+1, this.j-1)) {
+        this.addMove(1, -1);
       }
     }
   }
