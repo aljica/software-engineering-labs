@@ -9,10 +9,39 @@ public class Knight extends Piece {
     }
   }
 
-  public void addPossibleSquares(Piece[][] board) {
+  public void getJwhenIequalsZero(Piece[][] board) {
+    if (this.j == 0) {
+      this.oneDownTwoRight();
+      this.twoDownOneRight();
+    }
+    else if (this.j == 1) {
+
+    }
+    else if (1 < this.j < 6) {
+
+    }
+    else if (this.j == 6) {
+
+    }
+    else if (this.j == 7) {
+
+    }
+    else {
+      // This is temporary (?)
+      System.out.println("FATAL ERROR");
+      System.exit(0);
+    }
+  }
+
+  public void checkPossibleSquares(Piece[][] board) {
     // Check conditions and create appropriate sub-functions
     // to handle different possibilities
-    return;
+    switch(this.i) {
+      case 0:
+        this.getJwhenIequalsZero(board);
+      case 1:
+        this.getJwhenIequalsOne(board);
+    }
   }
 
   public void addAllPossibleSquares(Piece[][] board) {
@@ -118,7 +147,7 @@ public class Knight extends Piece {
 
   public void updateLegalMoves(Piece[][] board) {
     if (this.i < 2 || this.i > 5 || this.j < 2 || this.j > 5) {
-      this.addPossibleSquares(board);
+      this.checkPossibleSquares(board);
       return;
     }
     this.addAllPossibleSquares(board);
