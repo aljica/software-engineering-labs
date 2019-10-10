@@ -9,6 +9,8 @@ public class Knight extends Piece {
     }
   }
 
+  // Note that several lines below are exactly
+  // the same, so we can shorten this method significantly.
   public void checkPossibleSquares(Piece[][] board) {
     if (this.i == 0) {
       // Knight is at (0, j)
