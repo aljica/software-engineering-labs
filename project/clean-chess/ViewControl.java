@@ -57,7 +57,7 @@ class ViewControl extends JFrame implements ActionListener {
           }
         }
       }
-      // END testing purposes
+      /* END testing purposes */
       updateStatus();
       // Also updateMessage() here (maybe a msg in right pane saying "SElected")
     } else {

@@ -43,11 +43,23 @@ class ChessGame {
       moveToi = piecesLegalMoves.get(k).get(0);
       moveToj = piecesLegalMoves.get(k).get(1);
 
+      // Somewhere here, we want to check if the piece at
+      // index (i, j) where user wants to drop their selected
+      // piece, contains an opposite colored piece.
+      // If so, we should add said opposite colored piece to
+      // an ArrayList of captured pieces belonging to the
+      // appropriate player (we ought to have two of these
+      // ArrayLists to differentiate between which player has
+      // caught which pieces), indicating which pieces that player
+      // has "won". For now however, we will simply overwrite the
+      // piece with a null.
+
       if (i == moveToi && j == moveToj) {
 
         // Perform drop
         this.board[i][j] = chosenPiece;
-        this.board[this.choseni][this.chosenj] = null;
+        this.board[this.choseni][this.chosenj] = null; // Overwrites potential
+        // existing piece with "null".
 
         // Set the piece's i and j variables to new square.
         chosenPiece.seti(i); chosenPiece.setj(j);
