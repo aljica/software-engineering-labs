@@ -11,6 +11,9 @@ public class Knight extends Piece {
 
   // Note that several lines below are exactly
   // the same, so we can shorten this method significantly.
+  // Although I won't do it, because I want it to be very
+  // easy to follow exactly at which squares a knight can move
+  // given different starting positions.
   public void checkPossibleSquares(Piece[][] board) {
     if (this.i == 0) {
       // Knight is at (0, j)
