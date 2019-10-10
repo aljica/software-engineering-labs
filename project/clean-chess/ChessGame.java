@@ -8,7 +8,11 @@ class ChessGame {
   private int chosenj;
   private boolean selected = false;
   private boolean whitesTurn = true;
-  private String message;
+  private String message = "Game started";
+
+  public String updateMsg() {
+    return this.message;
+  }
 
   public boolean move(int i, int j) {
     if (pieceIsSelected()) {
@@ -18,49 +22,62 @@ class ChessGame {
     }
   }
 
-  public boolean drop(int i, int j) {
-    Piece chosenPiece = this.board[choseni][chosenj];
-
+  public boolean droppedOnSameSquare(int i, int j) {
     if (i == this.choseni && j == this.chosenj) {
       // If user picks up piece then drops on same square.
       this.selected = false;
+      this.message = "Piece was put back in its place";
       this.clearPiecesLegalMoves();
-      //return this.selected; // Evalutes to true in move().
     }
+    return !this.selected;
+  }
 
-    else {
-      ArrayList<ArrayList<Integer>> piecesLegalMoves;
-      piecesLegalMoves = chosenPiece.getLegalMoves();
-      int moveToi; int moveToj;
-      for (int k = 0; k < piecesLegalMoves.size(); k++) {
-        moveToi = piecesLegalMoves.get(k).get(0);
-        moveToj = piecesLegalMoves.get(k).get(1);
-        if (i == moveToi && j == moveToj) {
-          // perform move
-          this.board[i][j] = chosenPiece;
-          this.board[this.choseni][this.chosenj] = null;
-          chosenPiece.seti(i); chosenPiece.setj(j);
-          // If black or white pawn, then set its firstMove
-          // parameter to true, to avoid problems with
-          // clearing legal moves
-          // We made it so all pieces have a first move variable.
-          // They don't need it, though. Just the pawns. But it was easier
-          // to solve this problem by just giving them all a first move var.
-          chosenPiece.firstMoveHasBeenMade();
+  public void checkIfValidMove(int i, int j) {
+    Piece chosenPiece = this.board[choseni][chosenj];
+    ArrayList<ArrayList<Integer>> piecesLegalMoves;
+    piecesLegalMoves = chosenPiece.getLegalMoves();
+    int moveToi; int moveToj;
 
-          // Clear all pieces legal moves.
-          this.clearPiecesLegalMoves();
+    for (int k = 0; k < piecesLegalMoves.size(); k++) {
 
-          this.selected = false;
-          toggleWhoseTurn();
-        }
+      moveToi = piecesLegalMoves.get(k).get(0);
+      moveToj = piecesLegalMoves.get(k).get(1);
+
+      if (i == moveToi && j == moveToj) {
+
+        // Perform drop
+        this.board[i][j] = chosenPiece;
+        this.board[this.choseni][this.chosenj] = null;
+
+        // Set the piece's i and j variables to new square.
+        chosenPiece.seti(i); chosenPiece.setj(j);
+
+        // Set message
+        this.message = "Moved " + this.choseni + " " +
+          this.chosenj + " to " + i + " " + j;
+
+        // First move made for the given piece, and clear moves.
+        chosenPiece.firstMoveHasBeenMade();
+        this.clearPiecesLegalMoves();
+
+        // No longer selected (because drop was successful)
+        // and now other player's turn.
+        this.selected = false;
+        toggleWhoseTurn();
       }
     }
+  }
 
+  public boolean drop(int i, int j) {
+
+    // If user picks up piece then drops on same square.
+    if (this.droppedOnSameSquare(i, j)) {
+      return this.selected;
+    }
+    else {
+      this.checkIfValidMove(i, j);
+    }
     return this.selected;
-
-    // We also have to seti() and setj() the piece object we just moved to
-    // the new square we moved it to!!
   }
 
   public void clearPiecesLegalMoves() {
@@ -89,11 +106,11 @@ class ChessGame {
     }
   }
 
-  // Help function for select()
   void pickupPiece(int i, int j) {
     this.choseni = i;
     this.chosenj = j;
     this.selected = true;
+    this.message = "Selected " + i + " " + j;
   }
 
   public boolean select(int i, int j) {
@@ -103,11 +120,15 @@ class ChessGame {
       if (whiteToMove()) {
         if (identifier % 2 == 0) {
           pickupPiece(i, j);
+        } else {
+          this.message = "It is white to move";
         }
       }
       else {
         if (identifier % 2 == 1) {
           pickupPiece(i, j);
+        } else {
+          this.message = "It is black to move";
         }
       }
     }
