@@ -2,8 +2,6 @@ import java.util.ArrayList;
 
 public class Pawn extends Piece {
 
-  //public boolean firstMove = true; // Only pawns need this, for 1/2 step initial move.
-
   public Pawn(int i, int j, boolean isWhite) {
     super(i, j, isWhite);
     if (isWhite) {
@@ -64,8 +62,8 @@ public class Pawn extends Piece {
       Piece rightDiagonalSquare = board[this.i + 1][this.j + 1];
 
       if (rightDiagonalSquare != null) {
-        // If it's a black piece, we can capture it.
-        if (rightDiagonalSquare.getIdentifier() % 2 == 1) {
+        // If it's a white piece, we can capture it.
+        if (rightDiagonalSquare.getIdentifier() % 2 == 0) {
           this.addMove(1, 1);
         }
       }

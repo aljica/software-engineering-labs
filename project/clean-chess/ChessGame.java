@@ -9,6 +9,12 @@ class ChessGame {
   private boolean selected = false;
   private boolean whitesTurn = true;
   private String message = "Game started";
+  private ArrayList<Piece> capturedPieces =
+    new ArrayList<Piece>();
+
+  public ArrayList<Piece> getCapturedPieces() {
+    return this.capturedPieces;
+  }
 
   public String updateMsg() {
     return this.message;
@@ -56,10 +62,18 @@ class ChessGame {
 
       if (i == moveToi && j == moveToj) {
 
+        // If dropping on a square containing a piece, then
+        // the piece has been captured by the opponent.
+        Piece piece = this.board[i][j];
+        if (piece != null) {
+          // For now, we will use a capturedPieces ArrayList containing
+          // all caught pieces, white or black.
+          this.capturedPieces.add(piece);
+        }
+
         // Perform drop
         this.board[i][j] = chosenPiece;
-        this.board[this.choseni][this.chosenj] = null; // Overwrites potential
-        // existing piece with "null".
+        this.board[this.choseni][this.chosenj] = null;
 
         // Set the piece's i and j variables to new square.
         chosenPiece.seti(i); chosenPiece.setj(j);

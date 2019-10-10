@@ -57,13 +57,23 @@ class ViewControl extends JFrame implements ActionListener {
           }
         }
       }
+
+      // Test captured pieces:
+      ArrayList<Piece> captured = game.getCapturedPieces();
+      for (Piece piece : captured) {
+        System.out.println("Captured pieces: ");
+        System.out.println(piece);
+        System.out.print(piece.geti() + " ");
+        System.out.println(piece.getj() + " ");
+      }
       /* END testing purposes */
       updateStatus();
-      // Also updateMessage() here (maybe a msg in right pane saying "SElected")
-    } else {
+    }
+    else {
       if (game.pieceIsSelected()) {
         this.text.setText("Cannot move there");
-      } else {
+      }
+      else {
         this.updateMessage();
       }
     }

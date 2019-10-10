@@ -7,8 +7,6 @@ public abstract class Piece {
   public int value = -1;
   public boolean isWhite;
   public boolean firstMove = true;
-  //public boolean firstMove = true; // Only pawns need this, for 1/2 step initial move.
-  //public ArrayList<Integer> legalMoves = new ArrayList<Integer>();
   public ArrayList<ArrayList<Integer>> legalMoves = new ArrayList<ArrayList<Integer>>();
 
   public Piece(int i, int j, boolean isWhite) {
