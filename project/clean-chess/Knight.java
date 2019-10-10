@@ -200,15 +200,13 @@ public class Knight extends Piece {
     // 2 down, 1 left: 2, -1
     // 2 up, 1 right: -2, 1
     // 2 up, 1 left: -2, -1
-    Piece piece = board[this.i + a][this.j + b];
-    if (piece != null) {
-      // If it's an opposite colored piece, we can capture it
-      if ((this.value % 2) != (piece.getIdentifier() % 2)) {
-        this.addMove(a, b);
-      }
+    if (this.destinationSquareIsEmpty(board, this.i + a, this.j + b)) {
+      this.addMove(a, b);
     }
     else {
-      this.addMove(a, b);
+      if (this.destinationSquareHasOppositeColor(board, this.i + a, this.j + b)) {
+        this.addMove(a, b);
+      }
     }
   }
 

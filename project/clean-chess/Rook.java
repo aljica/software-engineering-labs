@@ -23,6 +23,20 @@ public class Rook extends Piece {
     }
   }
 
+  public void addHorizontalMovesEastward(Piece[][] board) {
+    for (int a = 1; a < (8 - this.j); a++) {
+      if (this.destinationSquareIsEmpty(board, this.i, this.j + a)) {
+        this.addMove(0, a);
+      }
+      else {
+        if (this.destinationSquareHasOppositeColor(board, this.i, this.j + a)) {
+          this.addMove(0, a);
+        }
+        break;
+      }
+    }
+  }
+
   // Upwards from white's point of view.
   public void addVerticalMovesUpwards(Piece[][] board) {
     // a = 1 and not a = 0 so we don't add this object's coordinates
@@ -38,20 +52,6 @@ public class Rook extends Piece {
           this.addMove(-a, 0);
         }
         break; // We cannot move any further in that direction.
-      }
-    }
-  }
-
-  public void addHorizontalMovesEastward(Piece[][] board) {
-    for (int a = 1; a < (8 - this.j); a++) {
-      if (this.destinationSquareIsEmpty(board, this.i, this.j + a)) {
-        this.addMove(0, a);
-      }
-      else {
-        if (this.destinationSquareHasOppositeColor(board, this.i, this.j + a)) {
-          this.addMove(0, a);
-        }
-        break;
       }
     }
   }
