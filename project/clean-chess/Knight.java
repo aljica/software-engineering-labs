@@ -86,6 +86,38 @@ public class Knight extends Piece {
         this.allPossibleManeuvers(board, 2, -1);
       }
     }
+    else if ((1 < this.i && this.i < 6) && this.j < 2) {
+      if (this.j == 0) {
+        this.allPossibleManeuvers(board, -2, 1);
+        this.allPossibleManeuvers(board, -1, 2);
+        this.allPossibleManeuvers(board, 1, 2);
+        this.allPossibleManeuvers(board, 2, 1);
+      }
+      else if (this.j == 1) {
+        this.allPossibleManeuvers(board, -2, 1);
+        this.allPossibleManeuvers(board, -1, 2);
+        this.allPossibleManeuvers(board, 1, 2);
+        this.allPossibleManeuvers(board, 2, 1);
+        this.allPossibleManeuvers(board, -2, -1);
+        this.allPossibleManeuvers(board, 2, -1);
+      }
+    }
+    else if ((1 < this.i && this.i < 6) && this.j > 5) {
+      if (this.j == 6) {
+        this.allPossibleManeuvers(board, -2, -1);
+        this.allPossibleManeuvers(board, -1, -2);
+        this.allPossibleManeuvers(board, 1, -2);
+        this.allPossibleManeuvers(board, 2, -1);
+        this.allPossibleManeuvers(board, -2, 1);
+        this.allPossibleManeuvers(board, 2, 1);
+      }
+      if (this.j == 7) {
+        this.allPossibleManeuvers(board, -2, -1);
+        this.allPossibleManeuvers(board, -1, -2);
+        this.allPossibleManeuvers(board, 1, -2);
+        this.allPossibleManeuvers(board, 2, -1);
+      }
+    }
     else if (this.i == 6) {
       if (this.j == 0) {
         this.allPossibleManeuvers(board, -1, 2);
