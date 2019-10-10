@@ -19,6 +19,12 @@ public abstract class Piece {
     this.firstMove = false;
   }
 
+  public void addMove(int a, int b) {
+    ArrayList<Integer> move = new ArrayList<Integer>();
+    move.add(this.i + a); move.add(this.j + b);
+    this.legalMoves.add(move);
+  }
+
   public abstract void updateLegalMoves(Piece[][] board);
 
   public void clearLegalMoves() {

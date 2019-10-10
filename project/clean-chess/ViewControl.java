@@ -32,7 +32,8 @@ class ViewControl extends JFrame implements ActionListener {
       }
       game.identifyLegalMoves();
 
-      // Just for testing purposes BEGIN
+      // Just for testing purposes, printing all squares on
+      // our board
       Piece p;
       for (int a = 0; a < 8; a++) {
         for (int b = 0; b < 8; b++) {

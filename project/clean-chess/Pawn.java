@@ -70,12 +70,6 @@ public class Pawn extends Piece {
     }
   }
 
-  public void addMove(int a, int b) {
-    ArrayList<Integer> move = new ArrayList<Integer>();
-    move.add(this.i + a); move.add(this.j + b);
-    this.legalMoves.add(move);
-  }
-
   public void checkLeftDiagonal(Piece[][] board) {
     if (this.isWhite) {
       Piece leftDiagonalSquare = board[this.i - 1][this.j - 1];
@@ -111,7 +105,7 @@ public class Pawn extends Piece {
     this.checkRightDiagonal(board);
   }
 
-  public void handlePieceMoves(Piece[][] board) {
+  public void updateLegalMoves(Piece[][] board) {
     if (this.firstMove) {
       this.untouchedPawnMovesTwoSquares(board);
     }
@@ -119,10 +113,5 @@ public class Pawn extends Piece {
       this.addSquareInfrontIfEmpty(board);
     }
     this.checkDiagonalCaptures(board);
-  }
-
-  public void updateLegalMoves(Piece[][] board) {
-
-    this.handlePieceMoves(board); // Everything below can be removed
   }
 }
