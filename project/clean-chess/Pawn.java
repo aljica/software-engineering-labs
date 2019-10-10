@@ -24,12 +24,15 @@ public class Pawn extends Piece {
 
   public void addSquareInfrontIfEmpty(Piece[][] board) {
     if (this.isWhite) {
-      if (board[this.i - 1][this.j] == null) {
+      // Seems to be a bug when pawn reaches 7th rank and tries to
+      // capture on 8th rank. Array out of bounds exception.
+      // Look into it.
+      if (this.destinationSquareIsEmpty(board, this.i - 1, this.j)) {
         this.addMove(-1, 0);
       }
     }
     else {
-      if (board[this.i + 1][this.j] == null) {
+      if (this.destinationSquareIsEmpty(board, this.i + 1, this.j)) {
         this.addMove(1, 0);
       }
     }

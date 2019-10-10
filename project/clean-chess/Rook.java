@@ -16,7 +16,14 @@ public class Rook extends Piece {
     // in the same place will be handled by ChessGame.java in
     // the droppedOnSameSquare() method.
     for (int a = 1; a <= this.i; a++) {
-      this.addMove(this.i - a, this.j);
+      if (this.destinationSquareIsEmpty(board, this.i - a, this.j)) {
+        this.addMove(this.i - a, this.j);
+      }
+      else {
+        if (this.destinationSquareHasOppositeColor(board, this.i - a, this.j)) {
+          this.addMove(this.i - a, this.j);
+        }
+      }
     }
   }
 
@@ -28,7 +35,14 @@ public class Rook extends Piece {
     }
     */
     for (int a = 1; a < (8 - this.i); a++) {
-      this.addMove(this.i + a, this.j);
+      if (this.destinationSquareIsEmpty(board, this.i + a, this.j)) {
+        this.addMove(this.i + a, this.j);
+      }
+      else {
+        if (this.destinationSquareHasOppositeColor(board, this.i + a, this.j)) {
+          this.addMove(this.i + a, this.j);
+        }
+      }
     }
   }
 
