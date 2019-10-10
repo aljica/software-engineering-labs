@@ -11,27 +11,22 @@ public class Rook extends Piece {
 
   public void addHorizontalMovesWestward(Piece[][] board) {
     for (int a = 1; a <= this.j; a++) {
-      if (this.destinationSquareIsEmpty(board, this.i, this.j - a)) {
-        this.addMove(0, -a);
+      if (this.destinationSquareOK(board, 0, -a)) {
+        continue;
       }
       else {
-        if (this.destinationSquareHasOppositeColor(board, this.i, this.j - a)) {
-          this.addMove(0, -a);
-        }
         break;
       }
     }
   }
 
+
   public void addHorizontalMovesEastward(Piece[][] board) {
     for (int a = 1; a < (8 - this.j); a++) {
-      if (this.destinationSquareIsEmpty(board, this.i, this.j + a)) {
-        this.addMove(0, a);
+      if (this.destinationSquareOK(board, 0, a)) {
+        continue;
       }
       else {
-        if (this.destinationSquareHasOppositeColor(board, this.i, this.j + a)) {
-          this.addMove(0, a);
-        }
         break;
       }
     }
@@ -44,30 +39,38 @@ public class Rook extends Piece {
     // in the same place will be handled by ChessGame.java in
     // the droppedOnSameSquare() method.
     for (int a = 1; a <= this.i; a++) {
-      if (this.destinationSquareIsEmpty(board, this.i - a, this.j)) {
-        this.addMove(-a, 0);
+      if (this.destinationSquareOK(board, -a, 0)) {
+        continue;
       }
       else {
-        if (this.destinationSquareHasOppositeColor(board, this.i - a, this.j)) {
-          this.addMove(-a, 0);
-        }
-        break; // We cannot move any further in that direction.
+        break;
       }
     }
   }
 
   public void addVerticalMovesDownwards(Piece[][] board) {
     for (int a = 1; a < (8 - this.i); a++) {
-      if (this.destinationSquareIsEmpty(board, this.i + a, this.j)) {
-        this.addMove(a, 0);
+      if (this.destinationSquareOK(board, a, 0)) {
+        continue;
       }
       else {
-        if (this.destinationSquareHasOppositeColor(board, this.i + a, this.j)) {
-          this.addMove(a, 0);
-        }
         break;
       }
     }
+  }
+
+  public boolean destinationSquareOK(Piece[][] board, int a, int b) {
+    if (this.destinationSquareIsEmpty(board, this.i + a, this.j + b)) {
+      this.addMove(a, b);
+      return true;
+    }
+    else {
+      if (this.destinationSquareHasOppositeColor(board, this.i + a, this.j + b)) {
+        this.addMove(a, b);
+        return true;
+      }
+    }
+    return false;
   }
 
   public void updateLegalMoves(Piece[][] board) {
