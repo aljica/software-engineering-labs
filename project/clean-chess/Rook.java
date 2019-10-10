@@ -9,8 +9,39 @@ public class Rook extends Piece {
     }
   }
 
+  // Upwards from white's point of view.
+  private void addVerticalMovesUpwards(Piece[][] board) {
+    // a = 1 and not a = 0 so we don't add this object's coordinates
+    // as well. Remember, picking up an object and putting it back
+    // in the same place will be handled by ChessGame.java in
+    // the droppedOnSameSquare() method.
+    for (int a = 1; a <= this.i; a++) {
+      this.addMove(this.i - a, this.j);
+    }
+  }
+
+  private void addVerticalMovesDownwards(Piece[][] board) {
+    /*
+    if ((8 - this.i) == 1) {
+    // Might need this because for-loop below might fail otherwise
+      return;
+    }
+    */
+  }
+    for (int a = 1; a < (8 - this.i); a++) {
+      this.addMove(this.i + a, this.j);
+    }
+  }
+
   public void updateLegalMoves(Piece[][] board) {
-    return;
+    if ((i - (8/2)) < 0) {
+      // This if-statement is here because order matters!
+      this.addVerticalMovesUpwards(board); // First we do this
+      this.addVerticalMovesDownwards(board); // Then, we do this
+    }
+    else {
+
+    }
   }
 
 }

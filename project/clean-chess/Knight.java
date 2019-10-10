@@ -22,6 +22,9 @@ public class Knight extends Piece {
   // So, when when a knight is at coordinate 1 < i < 6,
   // we must then, TOO, add special case scenarios, much like for
   // 1 < j < 6.
+
+  // NOTE TWO: We're not even checking to make sure the square
+  // we're moving to does not contain a same colored piece. Re-do this!
   public void checkPossibleSquares(Piece[][] board) {
     if (this.i == 0) {
       // Knight is at (0, j)
