@@ -70,6 +70,11 @@ public class Pawn extends Piece {
     }
   }
 
+  // Might want to rename these to addLeftDiagonal()?
+  // To follow naming convention found in Knight.java.
+  // Then again, we are checking the diagonals first, here...
+  // in Knight.java, we know the move is possible (unless same colored
+  // piece is blocking).
   public void checkLeftDiagonal(Piece[][] board) {
     if (this.isWhite) {
       Piece leftDiagonalSquare = board[this.i - 1][this.j - 1];
