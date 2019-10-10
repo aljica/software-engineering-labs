@@ -14,6 +14,14 @@ public class Knight extends Piece {
   // Although I won't do it, because I want it to be very
   // easy to follow exactly at which squares a knight can move
   // given different starting positions.
+
+  // NOTE: Knight is not completely done. Remember that the knight
+  // can only move to all possible squares when in the center of
+  // the board, but whenever the knight is within 2 squares of
+  // the edge, we have a special case to deal with.
+  // So, when when a knight is at coordinate 1 < i < 6,
+  // we must then, TOO, add special case scenarios, much like for
+  // 1 < j < 6.
   public void checkPossibleSquares(Piece[][] board) {
     if (this.i == 0) {
       // Knight is at (0, j)
