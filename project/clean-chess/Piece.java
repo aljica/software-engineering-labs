@@ -20,6 +20,7 @@ public abstract class Piece {
   }
 
   public Piece getPieceOnDestinationSquare(Piece[][] board, int a, int b) {
+    // Not sure if this is good OO-design?
     return board[a][b];
   }
 
