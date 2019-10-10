@@ -10,10 +10,6 @@ public abstract class Piece {
   public int i;
   public int j;
 
-  Piece() {
-
-  }
-
   public int getI() {
     return this.i;
   }
