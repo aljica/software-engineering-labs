@@ -199,6 +199,8 @@ public class Knight extends Piece {
     }
   }
 
+
+
   public void updateLegalMoves(Piece[][] board) {
     if (this.i < 2 || this.i > 5 || this.j < 2 || this.j > 5) {
       this.checkPossibleSquares(board);

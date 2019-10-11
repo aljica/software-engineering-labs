@@ -47,15 +47,11 @@ public class Bishop extends Piece {
     }
   }
 
-  public void checkDiagonalMoves(Piece[][] board) {
-    // Downwards
-    this.addMoves(board, 1, (8 - this.i));
-    // Upwards
-    this.addMoves(board, -1, (this.i + 1));
-  }
-
   public void updateLegalMoves(Piece[][] board) {
-    this.checkDiagonalMoves(board);
+    // Downwards (Southeast and Southwest)
+    this.addMoves(board, 1, (8 - this.i));
+    // Upwards (Northeast and Northwest)
+    this.addMoves(board, -1, (this.i + 1));
   }
 
 }
