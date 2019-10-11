@@ -9,10 +9,7 @@ class BreadthIterator implements Iterator<Component> {
   }
 
   public boolean hasNext() {
-    if (!bfs.isEmpty()) {
-      return true;
-    }
-    return false;
+    return !bfs.isEmpty();
   }
 
   public Component next() {

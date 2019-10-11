@@ -33,6 +33,10 @@ class Demo {
       Component t = itr.next();
       System.out.println(t.getName());
     }
+
+    for (Component item : suitcase) {
+      System.out.println(item.getName());
+    }
   }
 
 }
