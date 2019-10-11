@@ -9,52 +9,6 @@ public class Rook extends Piece {
     }
   }
 
-  public void addHorizontalMovesWestward(Piece[][] board) {
-    for (int a = 1; a <= this.j; a++) {
-      if (this.destinationSquareOK(board, this.i, this.j - a)) {
-        continue;
-      }
-      else {
-        break;
-      }
-    }
-  }
-
-
-  public void addHorizontalMovesEastward(Piece[][] board) {
-    for (int a = 1; a < (8 - this.j); a++) {
-      if (this.destinationSquareOK(board, this.i, this.j + a)) {
-        continue;
-      }
-      else {
-        break;
-      }
-    }
-  }
-
-  // Upwards from white's point of view.
-  public void addVerticalMovesUpwards(Piece[][] board) {
-    for (int a = 1; a <= this.i; a++) {
-      if (this.destinationSquareOK(board, this.i - a, this.j)) {
-        continue;
-      }
-      else {
-        break;
-      }
-    }
-  }
-
-  public void addVerticalMovesDownwards(Piece[][] board) {
-    for (int a = 1; a < (8 - this.i); a++) {
-      if (this.destinationSquareOK(board, this.i + a, this.j)) {
-        continue;
-      }
-      else {
-        break;
-      }
-    }
-  }
-
   public boolean destinationSquareOK(Piece[][] board, int a, int b) {
     if (this.destinationSquareIsEmpty(board, a, b)) {
       this.addMove(a, b);
@@ -68,11 +22,26 @@ public class Rook extends Piece {
     return false;
   }
 
+  public void addMoves(Piece[][] board, int x, int y, int range) {
+    for (int a = 1; a < range; a++) {
+      if (this.destinationSquareOK(board, this.i + x*a, this.j + y*a)) {
+        continue;
+      }
+      else {
+        break;
+      }
+    }
+  }
+
   public void updateLegalMoves(Piece[][] board) {
-    this.addVerticalMovesUpwards(board);
-    this.addVerticalMovesDownwards(board);
-    this.addHorizontalMovesEastward(board);
-    this.addHorizontalMovesWestward(board);
+    //this.addVerticalMovesUpwards(board);
+    this.addMoves(board, -1, 0, this.i + 1);
+    //this.addVerticalMovesDownwards(board);
+    this.addMoves(board, 1, 0, (8 - this.i));
+    //this.addHorizontalMovesEastward(board);
+    this.addMoves(board, 0, 1, (8 - this.j));
+    //this.addHorizontalMovesWestward(board);
+    this.addMoves(board, 0, -1, this.j + 1);
   }
 
 }
