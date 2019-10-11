@@ -9,34 +9,38 @@ public class Bishop extends Piece {
     }
   }
 
+  public boolean destinationSquareOK(Piece[][] board, int a, int b) {
+    if (this.destinationSquareIsEmpty(board, a, b)) {
+      this.addMove(a, b);
+      return true;
+    }
+    else {
+      if (this.destinationSquareHasOppositeColor(board, a, b)) {
+        this.addMove(a, b);
+      }
+    }
+    return false;
+  }
+
   public void checkDiagonalMoves(Piece[][] board) {
     int left = this.j;
     int right = this.j;
     // Downwards
     for (int a = 1; a < (8 - this.i); a++) {
       if ((8 - right) > 1) {
-        if (this.destinationSquareIsEmpty(board, this.i + a, right + 1)) {
-          this.addMove(this.i + a, right + 1);
+        if (this.destinationSquareOK(board, this.i + a, right + 1)) {
           right++;
         }
         else {
-          if (this.destinationSquareHasOppositeColor(board, this.i + a, right + 1)) {
-            this.addMove(this.i + a, right + 1);
-          }
-          //break;
-          right = 8; // Breaking the loop for right!
+          right = 8; // Break for-loop for right.
         }
       }
+
       if (left > 0) {
-        if (this.destinationSquareIsEmpty(board, this.i + a, left - 1)) {
-          this.addMove(this.i + a, left - 1);
+        if (this.destinationSquareOK(board, this.i + a, left - 1)) {
           left--;
         }
         else {
-          if (this.destinationSquareHasOppositeColor(board, this.i + a, left - 1)) {
-            this.addMove(this.i + a, left - 1);
-          }
-          //break;
           left = 0; // Breaking the loop for left!
         }
       }
@@ -47,28 +51,19 @@ public class Bishop extends Piece {
     // Upwards
     for (int a = 1; a <= this.i ; a++) {
       if ((8 - r) > 1) {
-        if (this.destinationSquareIsEmpty(board, this.i - a, r + 1)) {
-          this.addMove(this.i - a, r + 1);
+        if (this.destinationSquareOK(board, this.i - a, r + 1)) {
           r++;
         }
         else {
-          if (this.destinationSquareHasOppositeColor(board, this.i - a, r + 1)) {
-            this.addMove(this.i - a, r + 1);
-          }
-          //break;
           r = 8;
         }
       }
+
       if (l > 0) {
-        if (this.destinationSquareIsEmpty(board, this.i - a, l - 1)) {
-          this.addMove(this.i - a, l - 1);
+        if (this.destinationSquareOK(board, this.i - a, l - 1)) {
           l--;
         }
         else {
-          if (this.destinationSquareHasOppositeColor(board, this.i - a, l - 1)) {
-            this.addMove(this.i - a, l - 1);
-          }
-          //break;
           l = 0;
         }
       }

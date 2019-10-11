@@ -20,8 +20,6 @@ public abstract class Piece {
   }
 
   public Piece getPieceOnDestinationSquare(Piece[][] board, int a, int b) {
-    // Not sure if this is good OO-design?
-    // This should perhaps be in ChessGame.java?
     return board[a][b];
   }
 
@@ -43,7 +41,6 @@ public abstract class Piece {
     return false;
   }
 
-  // NOTE: Difference between this and addMove()
   public void addMove(int a, int b) {
     ArrayList<Integer> move = new ArrayList<Integer>();
     move.add(a); move.add(b);

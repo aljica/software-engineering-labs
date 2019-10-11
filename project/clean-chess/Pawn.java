@@ -11,42 +11,9 @@ public class Pawn extends Piece {
     }
   }
 
-  public void untouchedPawnMovesTwoSquares(Piece[][] board) {
-    if (this.isWhite) {
-      if (this.destinationSquareIsEmpty(board, this.i - 1, this.j)) {
-        this.addMove(this.i - 1, this.j);
-      }
-      if (this.destinationSquareIsEmpty(board, this.i - 2, this.j)) {
-        this.addMove(this.i - 2, this.j);
-      }
-    }
-    else {
-      if (this.destinationSquareIsEmpty(board, this.i + 1, this.j)) {
-        this.addMove(this.i + 1, this.j);
-      }
-      if (this.destinationSquareIsEmpty(board, this.i + 2, this.j)) {
-        this.addMove(this.i + 2, this.j);
-      }
-    }
-  }
-
-  public void addSquareInfrontIfEmpty(Piece[][] board) {
-    if (this.isWhite) {
-      // Seems to be a bug when pawn reaches 7th rank and tries to
-      // capture on 8th rank. Array out of bounds exception.
-      // Look into it.
-      // NOTE: Reason is because when we try to place the pawn on
-      // the 8th rank, it will automatically try to add index
-      // 8 (9th rank) to possible moves, but that rank doesn't
-      // exist. Figure out a solution for this.
-      if (this.destinationSquareIsEmpty(board, this.i - 1, this.j)) {
-        this.addMove(this.i - 1, this.j);
-      }
-    }
-    else {
-      if (this.destinationSquareIsEmpty(board, this.i + 1, this.j)) {
-        this.addMove(this.i + 1, this.j);
-      }
+  public void addSquareIfEmpty(Piece[][] board, int a, int b) {
+    if (this.destinationSquareIsEmpty(board, a, b)) {
+      this.addMove(a, b);
     }
   }
 
@@ -100,11 +67,25 @@ public class Pawn extends Piece {
 
   public void updateLegalMoves(Piece[][] board) {
     if (this.firstMove) {
-      this.untouchedPawnMovesTwoSquares(board);
+      if (this.isWhite) {
+        // Add the square directly in front, and 2 steps in front.
+        this.addSquareIfEmpty(board, this.i - 1, this.j);
+        this.addSquareIfEmpty(board, this.i - 2, this.j);
+      }
+      else {
+        this.addSquareIfEmpty(board, this.i + 1, this.j);
+        this.addSquareIfEmpty(board, this.i + 2, this.j);
+      }
     }
     else {
-      this.addSquareInfrontIfEmpty(board);
+      if (this.isWhite) {
+        this.addSquareIfEmpty(board, this.i - 1, this.j);
+      }
+      else {
+        this.addSquareIfEmpty(board, this.i + 1, this.j);
+      }
     }
     this.checkDiagonalCaptures(board);
   }
+
 }

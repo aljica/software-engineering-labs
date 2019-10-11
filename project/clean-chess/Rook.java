@@ -34,10 +34,6 @@ public class Rook extends Piece {
 
   // Upwards from white's point of view.
   public void addVerticalMovesUpwards(Piece[][] board) {
-    // a = 1 and not a = 0 so we don't add this object's coordinates
-    // as well. Remember, picking up an object and putting it back
-    // in the same place will be handled by ChessGame.java in
-    // the droppedOnSameSquare() method.
     for (int a = 1; a <= this.i; a++) {
       if (this.destinationSquareOK(board, this.i - a, this.j)) {
         continue;
@@ -60,7 +56,6 @@ public class Rook extends Piece {
   }
 
   public boolean destinationSquareOK(Piece[][] board, int a, int b) {
-    // Can be shortened with a || in the first if-statement...
     if (this.destinationSquareIsEmpty(board, a, b)) {
       this.addMove(a, b);
       return true;
@@ -68,7 +63,6 @@ public class Rook extends Piece {
     else {
       if (this.destinationSquareHasOppositeColor(board, a, b)) {
         this.addMove(a, b);
-        return true;
       }
     }
     return false;
