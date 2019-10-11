@@ -9,6 +9,8 @@ public class King extends Piece {
     }
   }
 
+  // Quite certain that this method could be part of abstract class Piece
+  // Maybe not, because Rook uses another variant!
   public void checkSurroundingSquares(Piece[][] board, int a, int b) {
     Piece destinationSquare;
 
