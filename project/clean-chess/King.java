@@ -19,13 +19,9 @@ public class King extends Piece {
       return;
     }
 
-    if (destinationSquare == null) {
+    if (destinationSquare == null ||
+      (destinationSquare.getIdentifier() % 2 != this.getIdentifier() % 2)) {
       this.addMove(this.i + a, this.j + b);
-    }
-    else {
-      if (destinationSquare.getIdentifier() % 2 != this.getIdentifier() % 2) {
-        this.addMove(this.i + a, this.j + b);
-      }
     }
   }
 
