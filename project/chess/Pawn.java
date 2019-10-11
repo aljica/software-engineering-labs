@@ -45,22 +45,22 @@ public class Pawn extends Piece {
 
   public void updateLegalMoves(Piece[][] board) {
     if (this.isWhite) {
-      this.addSquareIfEmpty(board, -1, 0); // One step in front
+      this.addIfEmpty(board, this.i-1, this.j); // One step in front
       if (this.firstMove) {
-        this.addSquareIfEmpty(board, -2, 0);
+        this.addIfEmpty(board, this.i-2, this.j);
       }
       // Diagonals
-      this.addDiagonalIfOpposite(board, -1, -1);
-      this.addDiagonalIfOpposite(board, -1, 1);
+      this.addIfOpposite(board, this.i-1, this.j-1);
+      this.addIfOpposite(board, this.i-1, this.j+1);
     }
     else if (!this.isWhite) {
-      this.addSquareIfEmpty(board, 1, 0); // One step in front
+      this.addIfEmpty(board, this.i+1, this.j); // One step in front
       if (this.firstMove) {
-        this.addSquareIfEmpty(board, 2, 0);
+        this.addIfEmpty(board, this.i+2, this.j);
       }
       // Diagonals
-      this.addDiagonalIfOpposite(board, 1, -1);
-      this.addDiagonalIfOpposite(board, 1, 1);
+      this.addIfOpposite(board, this.i+1, this.j-1);
+      this.addIfOpposite(board, this.i+1, this.j+1);
     }
   }
 

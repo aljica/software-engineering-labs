@@ -29,6 +29,13 @@ public abstract class Piece {
       return false;
     }
 
+    // THIS SOLVES A PROBLEM OF NULLPOINTEREXCEPTION FOR PAWN.java
+    // BUT MAYBE WE DON'T NEED THIS HERE...? MAYBE WE CAN DO THIS
+    // CHECK INSIDE OF PAWN.JAVA?
+    if (destinationSquare == null) {
+      return false; // This should solve the problem for pawn.
+    }
+
     if (this.getIdentifier() % 2 != destinationSquare.getIdentifier() % 2) {
       return this.addMove(a, b);
     }
