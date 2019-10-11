@@ -9,37 +9,74 @@ public class Bishop extends Piece {
     }
   }
 
-  public void checkDiagonalMoves(Piece[][] board, int a, int b) {
+  public void checkDiagonalMoves(Piece[][] board) {
     int left = this.j;
     int right = this.j;
     // Downwards
     for (int a = 1; a < (8 - this.i); a++) {
       if ((8 - right) > 1) {
-        if (this.destinationSquareIsEmpty(board, this.i + a, right + 1) ||
-          (this.destinationSquareHasOppositeColor(board, this.i + a, right + 1))) {
-          this.addMove2(this.i + a, right + 1);
+        if (this.destinationSquareIsEmpty(board, this.i + a, right + 1)) {
+          this.addMove(this.i + a, right + 1);
+          right++;
         }
-        right++;
+        else {
+          if (this.destinationSquareHasOppositeColor(board, this.i + a, right + 1)) {
+            this.addMove(this.i + a, right + 1);
+          }
+          //break;
+          right = 8; // Breaking the loop for right!
+        }
       }
       if (left > 0) {
-        if (this.destinationSquareIsEmpty(board, this.i + a, left - 1) ||
-          (this.destinationSquareHasOppositeColor(board, this.i + a, left - 1))) {
-            this.addMove2(this.i + a, left - 1);
+        if (this.destinationSquareIsEmpty(board, this.i + a, left - 1)) {
+          this.addMove(this.i + a, left - 1);
+          left--;
+        }
+        else {
+          if (this.destinationSquareHasOppositeColor(board, this.i + a, left - 1)) {
+            this.addMove(this.i + a, left - 1);
           }
-        left--;
+          //break;
+          left = 0; // Breaking the loop for left!
+        }
       }
     }
 
     int l = this.j;
     int r = this.j;
     // Upwards
-    for (int a = 1; a <= this.i; a++) {
-      
+    for (int a = 1; a <= this.i ; a++) {
+      if ((8 - r) > 1) {
+        if (this.destinationSquareIsEmpty(board, this.i - a, r + 1)) {
+          this.addMove(this.i - a, r + 1);
+          r++;
+        }
+        else {
+          if (this.destinationSquareHasOppositeColor(board, this.i - a, r + 1)) {
+            this.addMove(this.i - a, r + 1);
+          }
+          //break;
+          r = 8;
+        }
+      }
+      if (l > 0) {
+        if (this.destinationSquareIsEmpty(board, this.i - a, l - 1)) {
+          this.addMove(this.i - a, l - 1);
+          l--;
+        }
+        else {
+          if (this.destinationSquareHasOppositeColor(board, this.i - a, l - 1)) {
+            this.addMove(this.i - a, l - 1);
+          }
+          //break;
+          l = 0;
+        }
+      }
     }
   }
 
   public void updateLegalMoves(Piece[][] board) {
-    return;
+    this.checkDiagonalMoves(board);
   }
 
 }

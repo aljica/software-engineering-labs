@@ -190,11 +190,11 @@ public class Knight extends Piece {
     // 2 up, 1 right: -2, 1
     // 2 up, 1 left: -2, -1
     if (this.destinationSquareIsEmpty(board, this.i + a, this.j + b)) {
-      this.addMove(a, b);
+      this.addMove(this.i + a, this.j + b);
     }
     else {
       if (this.destinationSquareHasOppositeColor(board, this.i + a, this.j + b)) {
-        this.addMove(a, b);
+        this.addMove(this.i + a, this.j + b);
       }
     }
   }

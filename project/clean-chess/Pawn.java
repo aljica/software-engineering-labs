@@ -14,18 +14,18 @@ public class Pawn extends Piece {
   public void untouchedPawnMovesTwoSquares(Piece[][] board) {
     if (this.isWhite) {
       if (this.destinationSquareIsEmpty(board, this.i - 1, this.j)) {
-        this.addMove(-1, 0);
+        this.addMove(this.i - 1, this.j);
       }
       if (this.destinationSquareIsEmpty(board, this.i - 2, this.j)) {
-        this.addMove(-2, 0);
+        this.addMove(this.i - 2, this.j);
       }
     }
     else {
       if (this.destinationSquareIsEmpty(board, this.i + 1, this.j)) {
-        this.addMove(1, 0);
+        this.addMove(this.i + 1, this.j);
       }
       if (this.destinationSquareIsEmpty(board, this.i + 2, this.j)) {
-        this.addMove(2, 0);
+        this.addMove(this.i + 2, this.j);
       }
     }
   }
@@ -40,12 +40,12 @@ public class Pawn extends Piece {
       // 8 (9th rank) to possible moves, but that rank doesn't
       // exist. Figure out a solution for this.
       if (this.destinationSquareIsEmpty(board, this.i - 1, this.j)) {
-        this.addMove(-1, 0);
+        this.addMove(this.i - 1, this.j);
       }
     }
     else {
       if (this.destinationSquareIsEmpty(board, this.i + 1, this.j)) {
-        this.addMove(1, 0);
+        this.addMove(this.i + 1, this.j);
       }
     }
   }
@@ -63,12 +63,12 @@ public class Pawn extends Piece {
   public void checkRightDiagonal(Piece[][] board) {
     if (this.isWhite) {
       if (this.destinationSquareHasOppositeColor(board, this.i-1, this.j+1)) {
-        this.addMove(-1, 1);
+        this.addMove(this.i - 1, this.j + 1);
       }
     }
     else {
       if (this.destinationSquareHasOppositeColor(board, this.i+1, this.j+1)) {
-        this.addMove(1, 1);
+        this.addMove(this.i + 1, this.j + 1);
       }
     }
   }
@@ -76,12 +76,12 @@ public class Pawn extends Piece {
   public void checkLeftDiagonal(Piece[][] board) {
     if (this.isWhite) {
       if (this.destinationSquareHasOppositeColor(board, this.i-1, this.j-1)) {
-        this.addMove(-1, -1);
+        this.addMove(this.i - 1, this.j - 1);
       }
     }
     else {
       if (this.destinationSquareHasOppositeColor(board, this.i+1, this.j-1)) {
-        this.addMove(1, -1);
+        this.addMove(this.i + 1, this.j - 1);
       }
     }
   }

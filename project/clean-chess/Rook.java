@@ -11,7 +11,7 @@ public class Rook extends Piece {
 
   public void addHorizontalMovesWestward(Piece[][] board) {
     for (int a = 1; a <= this.j; a++) {
-      if (this.destinationSquareOK(board, 0, -a)) {
+      if (this.destinationSquareOK(board, this.i, this.j - a)) {
         continue;
       }
       else {
@@ -23,7 +23,7 @@ public class Rook extends Piece {
 
   public void addHorizontalMovesEastward(Piece[][] board) {
     for (int a = 1; a < (8 - this.j); a++) {
-      if (this.destinationSquareOK(board, 0, a)) {
+      if (this.destinationSquareOK(board, this.i, this.j + a)) {
         continue;
       }
       else {
@@ -39,7 +39,7 @@ public class Rook extends Piece {
     // in the same place will be handled by ChessGame.java in
     // the droppedOnSameSquare() method.
     for (int a = 1; a <= this.i; a++) {
-      if (this.destinationSquareOK(board, -a, 0)) {
+      if (this.destinationSquareOK(board, this.i - a, this.j)) {
         continue;
       }
       else {
@@ -50,13 +50,28 @@ public class Rook extends Piece {
 
   public void addVerticalMovesDownwards(Piece[][] board) {
     for (int a = 1; a < (8 - this.i); a++) {
-      if (this.destinationSquareOK(board, a, 0)) {
+      if (this.destinationSquareOK(board, this.i + a, this.j)) {
         continue;
       }
       else {
         break;
       }
     }
+  }
+
+  public boolean destinationSquareOK(Piece[][] board, int a, int b) {
+    // Can be shortened with a || in the first if-statement...
+    if (this.destinationSquareIsEmpty(board, a, b)) {
+      this.addMove(a, b);
+      return true;
+    }
+    else {
+      if (this.destinationSquareHasOppositeColor(board, a, b)) {
+        this.addMove(a, b);
+        return true;
+      }
+    }
+    return false;
   }
 
   public void updateLegalMoves(Piece[][] board) {
