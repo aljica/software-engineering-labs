@@ -9,7 +9,7 @@ public class Rook extends Piece {
     }
   }
 
-  public void addAllTheMoves(Piece[][] board, int x, int y) {
+  /*public void addAllTheMoves(Piece[][] board, int x, int y) {
     Piece destSquare;
     for (int a = 1; a < 8; a++) {
       try {
@@ -26,6 +26,18 @@ public class Rook extends Piece {
         if (destSquare.getIdentifier() % 2 != this.getIdentifier() % 2) {
           this.addMove(this.i + x*a, this.j + y*a);
         }
+        break;
+      }
+    }
+  }*/
+
+  public void addAllTheMoves(Piece[][] board, int x, int y) {
+    for (int a = 1; a < 8; a++) {
+      if (this.addIfEmpty(board, this.i + x*a, this.j + y*a)) {
+        continue;
+      }
+      else {
+        this.addIfOpposite(board, this.i + x*a, this.j + y*a);
         break;
       }
     }

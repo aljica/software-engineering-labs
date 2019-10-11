@@ -19,10 +19,43 @@ public abstract class Piece {
     this.firstMove = false;
   }
 
-  public void addMove(int a, int b) {
+  public boolean addIfOpposite(Piece[][] board, int a, int b) {
+    Piece destinationSquare;
+
+    try {
+      destinationSquare = board[a][b];
+    }
+    catch (ArrayIndexOutOfBoundsException e) {
+      return false;
+    }
+
+    if (this.getIdentifier() % 2 != destinationSquare.getIdentifier() % 2) {
+      return this.addMove(a, b);
+    }
+    return false;
+  }
+
+  public boolean addIfEmpty(Piece[][] board, int a, int b) {
+    Piece destinationSquare;
+
+    try {
+      destinationSquare = board[a][b];
+    }
+    catch (ArrayIndexOutOfBoundsException e) {
+      return false;
+    }
+
+    if (destinationSquare == null) {
+      return this.addMove(a, b);
+    }
+    return false;
+  }
+
+  public boolean addMove(int a, int b) {
     ArrayList<Integer> move = new ArrayList<Integer>();
     move.add(a); move.add(b);
     this.legalMoves.add(move);
+    return true;
   }
 
   public abstract void updateLegalMoves(Piece[][] board);
