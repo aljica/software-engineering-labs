@@ -19,8 +19,33 @@ public abstract class Piece {
     this.firstMove = false;
   }
 
+  // NOTE: All pieces have use of this method except Pawn.java, because
+  // pawns can only capture diagonally, so the
+  // else-if statement in this method does not apply for pawns.
+  // That's why pawn has its own methods.
+
+  // NOTE: Re-define this method as well so int a and int b are
+  // int a = this.i + x and int b = this.j + y
+  // CONSISTENCY is key, compare this to destinationSquareIsEmpty()
+  // and it'll become clear!!
+  public boolean destinationSquareOK(Piece[][] board, int a, int b) {
+    // Can be shortened with a || in the first if-statement...
+    if (this.destinationSquareIsEmpty(board, this.i + a, this.j + b)) {
+      this.addMove(a, b);
+      return true;
+    }
+    else {
+      if (this.destinationSquareHasOppositeColor(board, this.i + a, this.j + b)) {
+        this.addMove(a, b);
+        return true;
+      }
+    }
+    return false;
+  }
+
   public Piece getPieceOnDestinationSquare(Piece[][] board, int a, int b) {
     // Not sure if this is good OO-design?
+    // This should perhaps be in ChessGame.java?
     return board[a][b];
   }
 
@@ -40,6 +65,13 @@ public abstract class Piece {
       return true;
     }
     return false;
+  }
+
+  // NOTE: Difference between this and addMove()
+  public void addMove2(int a, int b) {
+    ArrayList<Integer> move = new ArrayList<Integer>();
+    move.add(a); move.add(b);
+    this.legalMoves.add(move);
   }
 
   public void addMove(int a, int b) {

@@ -13,12 +13,20 @@ public class Pawn extends Piece {
 
   public void untouchedPawnMovesTwoSquares(Piece[][] board) {
     if (this.isWhite) {
-      this.addMove(-1, 0);
-      this.addMove(-2, 0);
+      if (this.destinationSquareIsEmpty(board, this.i - 1, this.j)) {
+        this.addMove(-1, 0);
+      }
+      if (this.destinationSquareIsEmpty(board, this.i - 2, this.j)) {
+        this.addMove(-2, 0);
+      }
     }
     else {
-      this.addMove(1, 0);
-      this.addMove(2, 0);
+      if (this.destinationSquareIsEmpty(board, this.i + 1, this.j)) {
+        this.addMove(1, 0);
+      }
+      if (this.destinationSquareIsEmpty(board, this.i + 2, this.j)) {
+        this.addMove(2, 0);
+      }
     }
   }
 
@@ -27,6 +35,10 @@ public class Pawn extends Piece {
       // Seems to be a bug when pawn reaches 7th rank and tries to
       // capture on 8th rank. Array out of bounds exception.
       // Look into it.
+      // NOTE: Reason is because when we try to place the pawn on
+      // the 8th rank, it will automatically try to add index
+      // 8 (9th rank) to possible moves, but that rank doesn't
+      // exist. Figure out a solution for this.
       if (this.destinationSquareIsEmpty(board, this.i - 1, this.j)) {
         this.addMove(-1, 0);
       }

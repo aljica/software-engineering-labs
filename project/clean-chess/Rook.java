@@ -59,20 +59,6 @@ public class Rook extends Piece {
     }
   }
 
-  public boolean destinationSquareOK(Piece[][] board, int a, int b) {
-    if (this.destinationSquareIsEmpty(board, this.i + a, this.j + b)) {
-      this.addMove(a, b);
-      return true;
-    }
-    else {
-      if (this.destinationSquareHasOppositeColor(board, this.i + a, this.j + b)) {
-        this.addMove(a, b);
-        return true;
-      }
-    }
-    return false;
-  }
-
   public void updateLegalMoves(Piece[][] board) {
     this.addVerticalMovesUpwards(board);
     this.addVerticalMovesDownwards(board);
