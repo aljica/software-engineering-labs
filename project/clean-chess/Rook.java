@@ -9,28 +9,6 @@ public class Rook extends Piece {
     }
   }
 
-  /*public void addAllTheMoves(Piece[][] board, int x, int y) {
-    Piece destSquare;
-    for (int a = 1; a < 8; a++) {
-      try {
-        destSquare = board[this.i + x*a][this.j + y*a];
-      }
-      catch (ArrayIndexOutOfBoundsException e) {
-        continue;
-      }
-
-      if (destSquare == null) {
-        this.addMove(this.i + x*a, this.j + y*a);
-      }
-      else {
-        if (destSquare.getIdentifier() % 2 != this.getIdentifier() % 2) {
-          this.addMove(this.i + x*a, this.j + y*a);
-        }
-        break;
-      }
-    }
-  }*/
-
   public void addAllTheMoves(Piece[][] board, int x, int y) {
     for (int a = 1; a < 8; a++) {
       if (this.addIfEmpty(board, this.i + x*a, this.j + y*a)) {

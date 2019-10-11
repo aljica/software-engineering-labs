@@ -9,31 +9,24 @@ public class Knight extends Piece {
     }
   }
 
-  public void checkPossibleSquares(Piece[][] board, int a, int b) {
-    Piece destinationSquare;
-
-    try {
-      destinationSquare = board[this.i + a][this.j + b];
-    }
-    catch (ArrayIndexOutOfBoundsException e) {
+  public void addAllTheMoves(Piece[][] board, int a, int b) {
+    if (this.addIfEmpty(board, this.i + a, this.j + b)) {
       return;
     }
-
-    if (destinationSquare == null ||
-      (destinationSquare.getIdentifier() % 2 != this.getIdentifier() % 2)) {
-      this.addMove(this.i + a, this.j + b);
+    else {
+      this.addIfOpposite(board, this.i + a, this.j + b);
     }
   }
 
   public void updateLegalMoves(Piece[][] board) {
-    this.checkPossibleSquares(board, 2, -1); // 2 down, 1 left z
-    this.checkPossibleSquares(board, 2, 1);
-    this.checkPossibleSquares(board, 1, -2);
-    this.checkPossibleSquares(board, 1, 2);
-    this.checkPossibleSquares(board, -2, -1);
-    this.checkPossibleSquares(board, -2, 1);
-    this.checkPossibleSquares(board, -1, 2);
-    this.checkPossibleSquares(board, -1, -2);
+    this.addAllTheMoves(board, 2, -1); // 2 down, 1 left z
+    this.addAllTheMoves(board, 2, 1);
+    this.addAllTheMoves(board, 1, -2);
+    this.addAllTheMoves(board, 1, 2);
+    this.addAllTheMoves(board, -2, -1);
+    this.addAllTheMoves(board, -2, 1);
+    this.addAllTheMoves(board, -1, 2);
+    this.addAllTheMoves(board, -1, -2);
   }
 
 }
