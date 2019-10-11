@@ -47,11 +47,38 @@ public class Bishop extends Piece {
     }
   }
 
+  public void addAllTheMoves(Piece[][] board, int x, int y) {
+    Piece destSquare;
+    for (int a = 1; a < 8; a++) {
+      try {
+        destSquare = board[this.i + x*a][this.j + y*a];
+      }
+      catch (ArrayIndexOutOfBoundsException e) {
+        continue;
+      }
+
+      if (destSquare == null) {
+        this.addMove(this.i + x*a, this.j + y*a);
+      }
+      else {
+        if (destSquare.getIdentifier() % 2 != this.getIdentifier() % 2) {
+          this.addMove(this.i + x*a, this.j + y*a);
+        }
+        break;
+      }
+    }
+  }
+
   public void updateLegalMoves(Piece[][] board) {
-    // Downwards (Southeast and Southwest)
+    /*// Downwards (Southeast and Southwest)
     this.addMoves(board, 1, (8 - this.i));
     // Upwards (Northeast and Northwest)
-    this.addMoves(board, -1, (this.i + 1));
+    this.addMoves(board, -1, (this.i + 1));*/
+
+    this.addAllTheMoves(board, 1, 1); // SouthEast
+    this.addAllTheMoves(board, 1, -1); // Southwest
+    this.addAllTheMoves(board, -1, 1); // northeast
+    this.addAllTheMoves(board, -1, -1); // northwest 
   }
 
 }
