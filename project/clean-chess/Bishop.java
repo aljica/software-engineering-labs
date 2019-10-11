@@ -22,13 +22,13 @@ public class Bishop extends Piece {
     return false;
   }
 
-  public void checkDiagonalMoves(Piece[][] board) {
+  public void addMoves(Piece[][] board, int x, int range) {
     int left = this.j;
     int right = this.j;
-    // Downwards
-    for (int a = 1; a < (8 - this.i); a++) {
+
+    for (int a = 1; a < range; a++) {
       if ((8 - right) > 1) {
-        if (this.destinationSquareOK(board, this.i + a, right + 1)) {
+        if (this.destinationSquareOK(board, this.i + x*a, right + 1)) {
           right++;
         }
         else {
@@ -37,37 +37,21 @@ public class Bishop extends Piece {
       }
 
       if (left > 0) {
-        if (this.destinationSquareOK(board, this.i + a, left - 1)) {
+        if (this.destinationSquareOK(board, this.i + x*a, left - 1)) {
           left--;
         }
         else {
-          left = 0; // Breaking the loop for left!
+          left = 0; // Break for-loop for left.
         }
       }
     }
+  }
 
-    int l = this.j;
-    int r = this.j;
+  public void checkDiagonalMoves(Piece[][] board) {
+    // Downwards
+    this.addMoves(board, 1, (8 - this.i));
     // Upwards
-    for (int a = 1; a <= this.i ; a++) {
-      if ((8 - r) > 1) {
-        if (this.destinationSquareOK(board, this.i - a, r + 1)) {
-          r++;
-        }
-        else {
-          r = 8;
-        }
-      }
-
-      if (l > 0) {
-        if (this.destinationSquareOK(board, this.i - a, l - 1)) {
-          l--;
-        }
-        else {
-          l = 0;
-        }
-      }
-    }
+    this.addMoves(board, -1, (this.i + 1));
   }
 
   public void updateLegalMoves(Piece[][] board) {
