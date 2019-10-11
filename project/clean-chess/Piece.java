@@ -19,28 +19,6 @@ public abstract class Piece {
     this.firstMove = false;
   }
 
-  public Piece getPieceOnDestinationSquare(Piece[][] board, int a, int b) {
-    return board[a][b];
-  }
-
-  public boolean destinationSquareHasOppositeColor(Piece[][] board, int a, int b) {
-    if (!this.destinationSquareIsEmpty(board, a, b)) {
-      Piece destinationSquare = this.getPieceOnDestinationSquare(board, a, b);
-      if (destinationSquare.getIdentifier() % 2 != this.getIdentifier() % 2) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public boolean destinationSquareIsEmpty(Piece[][] board, int a, int b) {
-    Piece destinationSquare = board[a][b];
-    if (destinationSquare == null) {
-      return true;
-    }
-    return false;
-  }
-
   public void addMove(int a, int b) {
     ArrayList<Integer> move = new ArrayList<Integer>();
     move.add(a); move.add(b);
