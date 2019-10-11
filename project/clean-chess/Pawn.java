@@ -12,67 +12,56 @@ public class Pawn extends Piece {
   }
 
   public void addSquareIfEmpty(Piece[][] board, int a, int b) {
-    if (this.destinationSquareIsEmpty(board, a, b)) {
-      this.addMove(a, b);
-    }
-  }
+    Piece destinationSquare;
 
-  public void addDiagonalSquareIfOpposite(Piece[][] board, int a, int b) {
-    if (this.destinationSquareHasOppositeColor(board, a, b)) {
-      this.addMove(a, b);
+    try {
+      destinationSquare = board[this.i + a][this.j + b];
     }
-  }
-
-  public void checkRightDiagonal(Piece[][] board) {
-    if (this.isWhite) {
-      this.addDiagonalSquareIfOpposite(board, this.i-1, this.j+1);
-    }
-    else {
-      this.addDiagonalSquareIfOpposite(board, this.i+1, this.j+1);
-    }
-  }
-
-  public void checkLeftDiagonal(Piece[][] board) {
-    if (this.isWhite) {
-      this.addDiagonalSquareIfOpposite(board, this.i-1, this.j-1);
-    }
-    else {
-      this.addDiagonalSquareIfOpposite(board, this.i+1, this.j-1);
-    }
-  }
-
-  public void checkDiagonalCaptures(Piece[][] board) {
-    // Check if the pawn is an edge pawn
-    if (this.j == 0) {
-      this.checkRightDiagonal(board);
-      return;
-    }
-    else if (this.j == 7) {
-      this.checkLeftDiagonal(board);
+    catch (ArrayIndexOutOfBoundsException e) {
       return;
     }
 
-    // Left/Right from White's point of view (!)
-    this.checkLeftDiagonal(board);
-    this.checkRightDiagonal(board);
+    if (destinationSquare == null) {
+      this.addMove(this.i + a, this.j + b);
+    }
+  }
+
+  public void addDiagonalIfOpposite(Piece[][] board, int a, int b) {
+    Piece destinationSquare;
+
+    try {
+      destinationSquare = board[this.i + a][this.j + b];
+    }
+    catch (ArrayIndexOutOfBoundsException e) {
+      return;
+    }
+
+    if (destinationSquare != null) {
+      if (destinationSquare.getIdentifier() % 2 != this.getIdentifier() % 2) {
+        this.addMove(this.i + a, this.j + b);
+      }
+    }
   }
 
   public void updateLegalMoves(Piece[][] board) {
-    // If i == 8, pawn promotion. Not yet implemented.
     if (this.isWhite) {
-      this.addSquareIfEmpty(board, this.i - 1, this.j);
+      this.addSquareIfEmpty(board, -1, 0); // One step in front
       if (this.firstMove) {
-        this.addSquareIfEmpty(board, this.i - 2, this.j);
+        this.addSquareIfEmpty(board, -2, 0);
       }
+      // Diagonals
+      this.addDiagonalIfOpposite(board, -1, -1);
+      this.addDiagonalIfOpposite(board, -1, 1);
     }
-    else {
-      this.addSquareIfEmpty(board, this.i + 1, this.j);
+    else if (!this.isWhite) {
+      this.addSquareIfEmpty(board, 1, 0); // One step in front
       if (this.firstMove) {
-        this.addSquareIfEmpty(board, this.i + 2, this.j);
+        this.addSquareIfEmpty(board, 2, 0);
       }
+      // Diagonals
+      this.addDiagonalIfOpposite(board, 1, -1);
+      this.addDiagonalIfOpposite(board, 1, 1);
     }
-
-    this.checkDiagonalCaptures(board);
   }
 
 }
