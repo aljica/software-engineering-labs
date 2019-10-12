@@ -9,23 +9,11 @@ public class Bishop extends Piece {
     }
   }
 
-  public void addAllTheMoves(Piece[][] board, int x, int y) {
-    for (int a = 1; a < 8; a++) {
-      if (this.addIfEmpty(board, this.i + x*a, this.j + y*a)) {
-        continue;
-      }
-      else {
-        this.addIfOpposite(board, this.i + x*a, this.j + y*a);
-        break;
-      }
-    }
-  }
-
   public void updateLegalMoves(Piece[][] board) {
-    this.addAllTheMoves(board, 1, 1); // SouthEast
-    this.addAllTheMoves(board, 1, -1); // Southwest
-    this.addAllTheMoves(board, -1, 1); // northeast
-    this.addAllTheMoves(board, -1, -1); // northwest
+    this.addAllTheMoves(board, 1, 1, 8); // SouthEast
+    this.addAllTheMoves(board, 1, -1, 8); // Southwest
+    this.addAllTheMoves(board, -1, 1, 8); // northeast
+    this.addAllTheMoves(board, -1, -1, 8); // northwest
   }
 
 }

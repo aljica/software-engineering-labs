@@ -9,24 +9,16 @@ public class Knight extends Piece {
     }
   }
 
-  public void addAllTheMoves(Piece[][] board, int a, int b) {
-    if (this.addIfEmpty(board, this.i + a, this.j + b)) {
-      return;
-    }
-    else {
-      this.addIfOpposite(board, this.i + a, this.j + b);
-    }
-  }
-
   public void updateLegalMoves(Piece[][] board) {
-    this.addAllTheMoves(board, 2, -1); // 2 down, 1 left z
-    this.addAllTheMoves(board, 2, 1);
-    this.addAllTheMoves(board, 1, -2);
-    this.addAllTheMoves(board, 1, 2);
-    this.addAllTheMoves(board, -2, -1);
-    this.addAllTheMoves(board, -2, 1);
-    this.addAllTheMoves(board, -1, 2);
-    this.addAllTheMoves(board, -1, -2);
+    // Loop range 2 means it will be executed ONCE only
+    this.addAllTheMoves(board, 2, -1, 2); // 2 down, 1 left z
+    this.addAllTheMoves(board, 2, 1, 2);
+    this.addAllTheMoves(board, 1, -2, 2);
+    this.addAllTheMoves(board, 1, 2, 2);
+    this.addAllTheMoves(board, -2, -1, 2);
+    this.addAllTheMoves(board, -2, 1, 2);
+    this.addAllTheMoves(board, -1, 2, 2);
+    this.addAllTheMoves(board, -1, -2, 2);
   }
 
 }

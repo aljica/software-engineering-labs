@@ -19,6 +19,18 @@ public abstract class Piece {
     this.firstMove = false;
   }
 
+  public void addAllTheMoves(Piece[][] board, int x, int y, int range) {
+    for (int a = 1; a < range; a++) {
+      if (this.addIfEmpty(board, this.i + x*a, this.j + y*a)) {
+        continue;
+      }
+      else {
+        this.addIfOpposite(board, this.i + x*a, this.j + y*a);
+        break;
+      }
+    }
+  }
+
   public boolean addIfOpposite(Piece[][] board, int a, int b) {
     Piece destinationSquare;
 

@@ -11,38 +11,6 @@ public class Pawn extends Piece {
     }
   }
 
-  public void addSquareIfEmpty(Piece[][] board, int a, int b) {
-    Piece destinationSquare;
-
-    try {
-      destinationSquare = board[this.i + a][this.j + b];
-    }
-    catch (ArrayIndexOutOfBoundsException e) {
-      return;
-    }
-
-    if (destinationSquare == null) {
-      this.addMove(this.i + a, this.j + b);
-    }
-  }
-
-  public void addDiagonalIfOpposite(Piece[][] board, int a, int b) {
-    Piece destinationSquare;
-
-    try {
-      destinationSquare = board[this.i + a][this.j + b];
-    }
-    catch (ArrayIndexOutOfBoundsException e) {
-      return;
-    }
-
-    if (destinationSquare != null) {
-      if (destinationSquare.getIdentifier() % 2 != this.getIdentifier() % 2) {
-        this.addMove(this.i + a, this.j + b);
-      }
-    }
-  }
-
   public void updateLegalMoves(Piece[][] board) {
     if (this.isWhite) {
       this.addIfEmpty(board, this.i-1, this.j); // One step in front
