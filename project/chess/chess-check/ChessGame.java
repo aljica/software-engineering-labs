@@ -10,6 +10,10 @@ class ChessGame {
   private String message = "Game started";
   private ArrayList<Piece> capturedPieces = new ArrayList<Piece>();
 
+  // For handling checks
+  private Piece[][] previousStateOfBoard = new Piece[8][8];
+  private ArrayList<Piece> previousCapturedPieces = new ArrayList<Piece>();
+
   public ArrayList<Piece> getCapturedPieces() {
     return this.capturedPieces;
   }
@@ -23,6 +27,31 @@ class ChessGame {
       if (!drop(i, j)) {
         // If drop succeeds, then
         this.identifyLegalMoves();
+        // Here we should identify if either of the Kings are being checked
+        // If so, then we can update message to "Check!".
+        // Then, everything continues as normal.
+        // User can select a piece and move it, as usual.
+        // Except, this move() method will notice that the King was in check
+        // and if the King's second check variable is also active,
+        // it means the move is invalid and we undoMove(). Much simpler
+        // solution.
+        // Question is, how do we undoMove()? Saving pieces was a hassle.
+        // Also, this way of handling checks will not identify a checkmate.
+        // So, once we identify the first check HERE, then we should
+        // immediately look up ALL possible moves the user can make
+        // in the next move, and if there are none, it is a checkmate.
+        // NOTE: this.previousStateOfBoard = this.board; // Saving state of
+        //  board
+        // Don't forget toggleWhoseTurn(), resetFirstMoveHasBeenMade(),
+        // however won't have to do anything about this.selected because
+        // drop() will take care of that.
+        // Assume a piece has no legal moves.
+        // Then, selected will be true despite no move having been made.
+        // This will be the case when we try to select() again
+        // in the next iteration, so make sure to set this.selected to false.
+
+        // Forget the above. Let's try to create undoMove() first.
+
         return true;
       }
       // If drop fails
@@ -31,6 +60,48 @@ class ChessGame {
     // If a piece has not been selected, try to select the one user
     // clicked on
     return select(i, j);
+  }
+
+  public void undoMove() {
+    this.board = this.previousStateOfBoard;
+    this.capturedPieces = this.previousCapturedPieces;
+    this.toggleWhoseTurn();
+    this.clearPiecesLegalMoves();
+    this.identifyLegalMoves();
+  }
+
+  public void copyCurrentState() {
+    for (int i=0; i<8; i++) {
+      for (int j=0; j<8; j++) {
+        Piece piece = this.board[i][j];
+        if (piece == null) {
+          this.previousStateOfBoard[i][j] = null;
+          continue;
+        }
+
+        Piece copiedPiece = Piece.create(i, j, piece.getIdentifier());
+
+        // First move must also be set
+        if (!piece.isFirstMove()) {
+          copiedPiece.firstMoveHasBeenMade();
+        }
+
+        this.previousStateOfBoard[i][j] = copiedPiece;
+      }
+    }
+
+    // Also, save capturedPieces
+    for (int i=0; i<this.capturedPieces.size(); i++) {
+      Piece piece = this.capturedPieces.get(i);
+      Piece copiedPiece = Piece.create(piece.geti(), piece.getj(),
+        piece.getIdentifier());
+
+      if (!piece.isFirstMove()) {
+        copiedPiece.firstMoveHasBeenMade();
+      }
+
+      this.previousCapturedPieces.add(copiedPiece);
+    }
   }
 
   public boolean droppedOnSameSquare(int i, int j) {
@@ -51,6 +122,10 @@ class ChessGame {
     int moveToi; int moveToj;
 
     for (int k = 0; k < piecesLegalMoves.size(); k++) {
+
+      // Saving previous state:
+      this.copyCurrentState();
+      // End saving previous state
 
       moveToi = piecesLegalMoves.get(k).get(0);
       moveToj = piecesLegalMoves.get(k).get(1);

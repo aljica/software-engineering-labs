@@ -1,11 +1,11 @@
-In Piece.java, in addIfOpposite(), we should check whether or not the opposing piece is the King. If so, then we should invoke said King's isAttacked() method, which sets the King's class variable "isBeingAttacked" to true. 
+In Piece.java, in addIfOpposite(), we should check whether or not the opposing piece is the King. If so, then we should invoke said King's isAttacked() method, which sets the King's class variable "isBeingAttacked" to true.
 
-Subsequently, in ChessGame.java, we should have an if-statement in our drop() method which, with each move, checks if either the white or black King is under threat (by checking their respective "isBeingAttacked" class variable. 
+Subsequently, in ChessGame.java, we should have an if-statement in our drop() method which, with each move, checks if either the white or black King is under threat (by checking their respective "isBeingAttacked" class variable.
 
 And if this is the case, ChessGame.java should also have a method called undoMove() which undoes the last move and updates the game message with "Cannot move there, white/black King in check" [Note that this ought to be used only in the case of a player moving their King to a square that puts the King in check, or does not flee from an existing check].
 
 // IMPORTANT:
-One very important thing to check after ChessGame.java checks for whether or not a King is in check, is to also determine whose move it is. For instance, if the black King is checked, and it is black's turn, then there is no reason to undoMove(). Perhaps we actually don't need an undoMove(), because if (as written below), we check ALL possible moves for black such that black is no longer in check, then we can instantly tell the user they cannot make a certain move because it doesn't avoid the check. 
+One very important thing to check after ChessGame.java checks for whether or not a King is in check, is to also determine whose move it is. For instance, if the black King is checked, and it is black's turn, then there is no reason to undoMove(). Perhaps we actually don't need an undoMove(), because if (as written below), we check ALL possible moves for black such that black is no longer in check, then we can instantly tell the user they cannot make a certain move because it doesn't avoid the check.
 
 Note that it's a good idea to check all possible moves that black can make to avoid the check, because if we don't, then we don't have any way of checking if the user is in checkmate.
 // END IMPORTANT.

@@ -164,6 +164,16 @@ class ViewControl extends JFrame implements ActionListener {
     // Btn action listeners
     setBtnListeners();
 
+    // Trying out previous state
+    JButton prevState = new JButton("Previous");
+    prevState.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        game.undoMove();
+        updateStatus();
+      }
+    });
+    infoPanel.add(prevState);
+
     // Update chess panel (board) status
     updateStatus();
     updateMessage();

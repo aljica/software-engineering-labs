@@ -12,6 +12,30 @@ public class King extends Piece {
     }
   }
 
+  public void setUnderAttack() {
+    this.underAttack = true;
+  }
+
+  public void resetUnderAttack() {
+    this.underAttack = false;
+  }
+
+  public boolean underAttack() {
+    return underAttack;
+  }
+
+  public void setStillUnderAttack() {
+    this.stillUnderAttack = true;
+  }
+
+  public void resetStillUnderAttack() {
+    this.stillUnderAttack = false;
+  }
+
+  public boolean stillUnderAttack() {
+    return this.stillUnderAttack;
+  }
+
   public void updateLegalMoves(Piece[][] board) {
     this.addAllTheMoves(board, 1, 0, 2); // Down
     this.addAllTheMoves(board, 0, 1, 2); // Right
