@@ -24,6 +24,19 @@ class ChessGame {
       if (!drop(i, j)) {
         // If drop succeeds, then
         this.identifyLegalMoves();
+        // Here we should identify if either of the Kings are being checked
+        // If so, then we can update message to "Check!".
+        // Then, everything continues as normal.
+        // User can select a piece and move it, as usual.
+        // Except, this move() method will notice that the King was in check
+        // and if the King's second check variable is also active,
+        // it means the move is invalid and we undoMove(). Much simpler
+        // solution.
+        // Question is, how do we undoMove()? Saving pieces was a hassle.
+        // Also, this way of handling checks will not identify a checkmate.
+        // So, once we identify the first check HERE, then we should
+        // immediately look up ALL possible moves the user can make
+        // in the next move, and if there are none, it is a checkmate.
         return true;
       }
       // If drop fails
