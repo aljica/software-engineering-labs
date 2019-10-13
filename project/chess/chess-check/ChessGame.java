@@ -71,6 +71,8 @@ class ChessGame {
   }
 
   public void copyCurrentState() {
+    // See https://stackoverflow.com/questions/15051988/revert-to-old-object-state-in-java
+    // on how to copy the object. Code below is questionable.
     for (int i=0; i<8; i++) {
       for (int j=0; j<8; j++) {
         Piece piece = this.board[i][j];
