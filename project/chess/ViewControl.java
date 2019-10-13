@@ -30,6 +30,8 @@ class ViewControl extends JFrame implements ActionListener {
       if (moveWasSelection) {
         return;
       }
+
+      // This shouldn't be in ViewControl, I would think...
       game.identifyLegalMoves();
 
       // Just for testing purposes, printing all squares on

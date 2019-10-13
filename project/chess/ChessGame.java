@@ -3,7 +3,6 @@ import java.util.ArrayList;
 class ChessGame {
 
   Piece[][] board = new Piece[8][8];
-  //private Piece chosenPiece;
   private int choseni;
   private int chosenj;
   private boolean selected = false;
@@ -49,17 +48,6 @@ class ChessGame {
       moveToi = piecesLegalMoves.get(k).get(0);
       moveToj = piecesLegalMoves.get(k).get(1);
 
-      // Somewhere here, we want to check if the piece at
-      // index (i, j) where user wants to drop their selected
-      // piece, contains an opposite colored piece.
-      // If so, we should add said opposite colored piece to
-      // an ArrayList of captured pieces belonging to the
-      // appropriate player (we ought to have two of these
-      // ArrayLists to differentiate between which player has
-      // caught which pieces), indicating which pieces that player
-      // has "won". For now however, we will simply overwrite the
-      // piece with a null.
-
       if (i == moveToi && j == moveToj) {
 
         // If dropping on a square containing a piece, then
@@ -95,7 +83,6 @@ class ChessGame {
   }
 
   public boolean drop(int i, int j) {
-
     // If user picks up piece then drops on same square.
     if (this.droppedOnSameSquare(i, j)) {
       return this.selected;
@@ -140,6 +127,7 @@ class ChessGame {
   }
 
   public boolean select(int i, int j) {
+
     if (board[i][j] != null) {
       int identifier = board[i][j].getIdentifier();
 
@@ -187,31 +175,31 @@ class ChessGame {
   }
 
   void initBoard() {
-    board[0][0] = new Rook(0, 0, false);
-    board[0][1] = new Knight(0, 1, false);
-    board[0][2] = new Bishop(0, 2, false);
-    board[0][3] = new Queen(0, 3, false);
-    board[0][4] = new King(0, 4, false);
-    board[0][5] = new Bishop(0, 5, false);
-    board[0][6] = new Knight(0, 6, false);
-    board[0][7] = new Rook(0, 7, false);
+    this.board[0][0] = new Rook(0, 0, false);
+    this.board[0][1] = new Knight(0, 1, false);
+    this.board[0][2] = new Bishop(0, 2, false);
+    this.board[0][3] = new Queen(0, 3, false);
+    this.board[0][4] = new King(0, 4, false);
+    this.board[0][5] = new Bishop(0, 5, false);
+    this.board[0][6] = new Knight(0, 6, false);
+    this.board[0][7] = new Rook(0, 7, false);
 
-    board[7][0] = new Rook(7, 0, true);
-    board[7][1] = new Knight(7, 1, true);
-    board[7][2] = new Bishop(7, 2, true);
-    board[7][3] = new Queen(7, 3, true);
-    board[7][4] = new King(7, 4, true);
-    board[7][5] = new Bishop(7, 5, true);
-    board[7][6] = new Knight(7, 6, true);
-    board[7][7] = new Rook(7, 7, true);
+    this.board[7][0] = new Rook(7, 0, true);
+    this.board[7][1] = new Knight(7, 1, true);
+    this.board[7][2] = new Bishop(7, 2, true);
+    this.board[7][3] = new Queen(7, 3, true);
+    this.board[7][4] = new King(7, 4, true);
+    this.board[7][5] = new Bishop(7, 5, true);
+    this.board[7][6] = new Knight(7, 6, true);
+    this.board[7][7] = new Rook(7, 7, true);
 
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 8; j++) {
         if (i == 0) {
-          board[1][j] = new Pawn(1, j, false);
+          this.board[1][j] = new Pawn(1, j, false);
         }
         else if (i == 1) {
-          board[6][j] = new Pawn(6, j, true);
+          this.board[6][j] = new Pawn(6, j, true);
         }
       }
     }
