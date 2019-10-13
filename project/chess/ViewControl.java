@@ -22,17 +22,12 @@ class ViewControl extends JFrame implements ActionListener {
   public void actionPerformed(ActionEvent e) {
 
     Square square = (Square) e.getSource();
+    // Move being selection or drop
     boolean moveWasSuccess = game.move(square.geti(), square.getj());
 
     if (moveWasSuccess) {
       this.updateMessage();
-      boolean moveWasSelection = game.pieceIsSelected();
-      if (moveWasSelection) {
-        return;
-      }
-
-      // This shouldn't be in ViewControl, I would think...
-      game.identifyLegalMoves();
+      this.updateStatus();
 
       // Just for testing purposes, printing all squares on
       // our board
@@ -70,7 +65,6 @@ class ViewControl extends JFrame implements ActionListener {
         System.out.println(piece.getj() + " ");
       }
       /* END testing purposes */
-      updateStatus();
     }
     else {
       if (game.pieceIsSelected()) {

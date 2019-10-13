@@ -21,10 +21,17 @@ class ChessGame {
 
   public boolean move(int i, int j) {
     if (pieceIsSelected()) {
-      return !drop(i, j);
-    } else {
-      return select(i, j);
+      if (!drop(i, j)) {
+        // If drop succeeds, then
+        this.identifyLegalMoves();
+        return true;
+      }
+      // If drop fails
+      return false;
     }
+    // If a piece has not been selected, try to select the one user
+    // clicked on
+    return select(i, j);
   }
 
   public boolean droppedOnSameSquare(int i, int j) {
