@@ -98,7 +98,18 @@ class VecElements<E extends Comparable<E>> implements SparseVec<E> {
   }
 
   public List<E> sortedValues() {
-    return null;
+    Set<Map.Entry<Integer, E>> mappings = this.tree.entrySet();
+    Iterator<Map.Entry<Integer, E>> itr = mappings.iterator();
+    List<E> values = new ArrayList<>();
+
+    while (itr.hasNext()) {
+      Map.Entry<Integer, E> item = itr.next();
+      values.add(item.getValue());
+    }
+
+    Collections.sort(values);
+    System.out.println(values);
+    return values;
   }
 
 }

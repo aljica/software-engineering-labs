@@ -12,4 +12,6 @@ class Main {
     System.out.println(a[2]);
   }
 
+  v.sortedValues();
+
 }
