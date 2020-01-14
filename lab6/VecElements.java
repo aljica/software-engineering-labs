@@ -6,6 +6,27 @@ class VecElements<E extends Comparable<E>> implements SparseVec<E> {
   public TreeMap<Integer, E> tree =
     new TreeMap<Integer, E>();
 
+  public static void main(String[] args) {
+    VecElements<Integer> vec = new VecElements<>();
+    vec.add(0, 5000);
+    vec.add(17, 3000);
+    vec.add(21, 3050);
+    vec.add(3, 10000);
+    vec.add(7, 900);
+
+    System.out.println(vec);
+    Object[] arr = vec.toArray();
+    List<Integer> values = vec.sortedValues();
+    System.out.println(values);
+
+    // Test result of toArray()
+    int i = 0;
+    for (Object o : arr) {
+      System.out.print(o);
+      System.out.println(" " + i++);
+    }
+  }
+
   public void add(E elem) {
     Set<Map.Entry<Integer, E>> mappings = this.tree.entrySet();
     Iterator<Map.Entry<Integer, E>> itr = mappings.iterator();
@@ -51,10 +72,12 @@ class VecElements<E extends Comparable<E>> implements SparseVec<E> {
   }
 
   public int minIndex() {
+    if (this.size() == 0) return -1;
     return this.tree.firstKey();
   }
 
   public int maxIndex() {
+    if (this.size() == 0) return -1;
     return this.tree.lastKey();
   }
 
@@ -81,6 +104,8 @@ class VecElements<E extends Comparable<E>> implements SparseVec<E> {
   }
 
   public Object[] toArray() {
+    if (this.size() == 0) return null;
+
     Set<Map.Entry<Integer, E>> mappings = this.tree.entrySet();
     Iterator<Map.Entry<Integer, E>> itr = mappings.iterator();
 
@@ -98,6 +123,8 @@ class VecElements<E extends Comparable<E>> implements SparseVec<E> {
   }
 
   public List<E> sortedValues() {
+    if (this.size() == 0) return null;
+
     Set<Map.Entry<Integer, E>> mappings = this.tree.entrySet();
     Iterator<Map.Entry<Integer, E>> itr = mappings.iterator();
     List<E> values = new ArrayList<>();
