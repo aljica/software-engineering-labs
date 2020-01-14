@@ -108,7 +108,6 @@ class VecElements<E extends Comparable<E>> implements SparseVec<E> {
     }
 
     Collections.sort(values);
-    System.out.println(values);
     return values;
   }
 

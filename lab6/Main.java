@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Main {
 
   public static void main(String[] u) {
@@ -10,8 +12,8 @@ class Main {
     System.out.println(v.toString());
     Object[] a = v.toArray();
     System.out.println(a[2]);
-  }
 
-  v.sortedValues();
+    v.sortedValues();
+  }
 
 }
