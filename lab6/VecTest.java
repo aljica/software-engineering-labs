@@ -10,7 +10,7 @@ public class VecTest {
     Vec<Integer> vec = new Vec<>();
     assertEquals(0, vec.size());
     assertEquals(-1, vec.minIndex());
-    assertNull(vec.gets(3));
+    assertNull(vec.get(3));
     assertNull(vec.sortedValues());
     assertNull(vec.toArray());
   }

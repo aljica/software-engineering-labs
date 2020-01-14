@@ -6,7 +6,24 @@ class Vec<E extends Comparable<E>> extends TreeMap<Integer, E> implements Sparse
 
   public static void main(String[] args) {
     Vec<Integer> vec = new Vec<>();
-    vec.add(0, 2000);
+
+    vec.add(0, 5000);
+    vec.add(17, 3000);
+    vec.add(21, 3050);
+    vec.add(3, 10000);
+    vec.add(7, 900);
+
+    System.out.println(vec);
+    Object[] arr = vec.toArray();
+    List<Integer> values = vec.sortedValues();
+    System.out.println(values);
+
+    // Test result of toArray()
+    int i = 0;
+    for (Object o : arr) {
+      System.out.print(o);
+      System.out.println(" " + i++);
+    }
   }
 
   public void add(E elem) {
@@ -49,10 +66,6 @@ class Vec<E extends Comparable<E>> extends TreeMap<Integer, E> implements Sparse
     this.removeAt(pos);
   }
 
-  public int size() {
-    return this.size();
-  }
-
   public int minIndex() {
     if (this.size() == 0) return -1;
     return this.firstKey();
@@ -79,10 +92,6 @@ class Vec<E extends Comparable<E>> extends TreeMap<Integer, E> implements Sparse
       s.append("\n");
     }
     return s.toString();
-  }
-
-  public E get(int pos) {
-    return this.get(pos);
   }
 
   public Object[] toArray() {
