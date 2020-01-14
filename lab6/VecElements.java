@@ -4,9 +4,12 @@ class VecElements<E extends Comparable<E>> implements SparseVec<E> {
   public TreeMap<Integer, E> tree =
     new TreeMap<Integer, E>(); // Object? Questionable.
 
-  @Override
   public void add(E elem) {
-    return;
+    Set mappings = this.tree.entrySet();
+    Object[] keys = mappings.toArray();
+    for (Object o : keys) {
+      System.out.println(o);
+    }
   }
 
   public void add(int pos, E elem) {
@@ -18,7 +21,7 @@ class VecElements<E extends Comparable<E>> implements SparseVec<E> {
   }
 
   public void removeAt(int pos) {
-    return this.tree.remove(pos);
+    this.tree.remove(pos);
   }
 
   public void removeElem(E elem) {
