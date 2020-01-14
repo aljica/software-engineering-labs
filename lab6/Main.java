@@ -5,14 +5,11 @@ class Main {
     VecElements<Integer> v = new VecElements<>();
     v.add(0, 1720);
     v.add(1, 1700);
-    v.add(10, 1900);
+    v.add(3, 1900);
 
-    Integer n = v.get(10);
-    System.out.println(n.intValue());
-
-    v.removeAt(10);
-    v.add(1950);
-
+    System.out.println(v.toString());
+    Object[] a = v.toArray();
+    System.out.println(a[2]);
   }
 
 }
