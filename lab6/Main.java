@@ -2,7 +2,8 @@ class Main {
 
   public static void main(String[] u) {
 
-    VecElement<Integer> v = new VecElement<>(0, 2);
+    VecElements<Integer> v = new VecElements<>();
+    System.out.println(v.minIndex());
 
   }
 

@@ -1,15 +1,8 @@
 import java.util.*;
 
-class VecElement<E extends Comparable<E>> implements SparseVec<E> {
-
-  private int index;
-  private E item;
-  private static TreeMap<Integer, Object> tree = new TreeMap<>(); // Object? Questionable.
-
-  public VecElement(int index, E item) {
-    this.index = index;
-    this.item = item;
-  }
+class VecElements<E extends Comparable<E>> implements SparseVec<E> {
+  public TreeMap<Integer, E> tree =
+    new TreeMap<Integer, E>(); // Object? Questionable.
 
   @Override
   public void add(E elem) {
@@ -17,7 +10,7 @@ class VecElement<E extends Comparable<E>> implements SparseVec<E> {
   }
 
   public void add(int pos, E elem) {
-    return;
+    this.tree.put(pos, elem);
   }
 
   public int indexOf(E elem) {
@@ -25,23 +18,24 @@ class VecElement<E extends Comparable<E>> implements SparseVec<E> {
   }
 
   public void removeAt(int pos) {
-    return;
+    return this.tree.remove(pos);
   }
 
   public void removeElem(E elem) {
-    return;
+    int pos = this.indexOf(elem);
+    this.removeAt(pos);
   }
 
   public int size() {
-    return 0;
+    return this.tree.size();
   }
 
   public int minIndex() {
-    return 0;
+    return this.tree.firstKey();
   }
 
   public int maxIndex() {
-    return 0;
+    return this.tree.lastKey();
   }
 
   public String toString() {
@@ -49,7 +43,7 @@ class VecElement<E extends Comparable<E>> implements SparseVec<E> {
   }
 
   public E get(int pos) {
-    return null;
+    return this.tree.get(pos);
   }
 
   public Object[] toArray() {
