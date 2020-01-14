@@ -13,11 +13,11 @@ class NumberedItem<T> {
     return this.index;
   }
 
-  public <T> int compareTo(NumberedItem<T> o) {
+  public int compareTo(NumberedItem<T> o) {
     return this.getIndex() - o.getIndex();
   }
 
-  public <T> boolean equals(NumberedItem<T> o) {
+  public boolean equals(NumberedItem<T> o) {
     if (o == null) return false;
 
     if (this.getIndex() - o.getIndex() == 0) return true;
